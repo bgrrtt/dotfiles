@@ -1,0 +1,43 @@
+_HOLD*
+NOTES.md
+
+zsh/.local/share/zsh/zshfw/*
+!zsh/.local/share/zsh/zshfw/.gitkeep
+
+zsh/.zsh.d/**
+!zsh/.zsh.d/.zim
+
+zsh/.zsh.d/.zim/*
+!zsh/.zsh.d/.zim/zimfw.zsh
+
+!zsh/.zsh.d/.zlogin
+!zsh/.zsh.d/.zprofile
+!zsh/.zsh.d/.zshrc
+!zsh/.zsh.d/.zimrc
+
+rclone/.config/rclone/rclone.conf
+sshrc/.sshrc.d/.config/rclone/rclone.conf
+
+
+
+# zsh/.zsh.d/.zim/*
+# !zsh/.zsh.d/.zim/zimfw.zsh
+
+# zsh/.zim/*
+# !zsh/.zim/zimfw.zsh
+
+vscode/.vscode/extensions/*
+!vscode/.vscode/extensions/.gitkeep
+
+nvim/.config/nvim/autoload/*
+!nvim/.config/nvim/autoload/.gitkeep
+
+nvim/.local/share/nvim/plugged/**
+!nvim/.local/share/nvim/plugged/.gitkeep
+
+nvim/.local/share/nvim/undo/**
+!nvim/.local/share/nvim/undo/.gitkeep
+
+weechat/.weechat/*.log
+weechat/.weechat/logs/*
+!weechat/.weechat/logs/.gitkeep
