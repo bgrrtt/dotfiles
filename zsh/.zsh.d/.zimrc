@@ -1,0 +1,76 @@
+#!/usr/bin/env zsh
+###############################################################################
+###############################################################################
+
+
+# .zimrc
+
+
+###############################################################################
+# Core
+
+zmodule environment
+zmodule git
+zmodule input
+zmodule termtitle
+zmodule utility
+
+###############################################################################
+# User
+
+zmodule ssh
+zmodule fasd
+zmodule homebrew
+zmodule ruby
+
+zmodule michaelaquilina/zsh-you-should-use -n you-should-use
+
+zmodule bgrrtt/zimfw-extras -n bgrrtt-extras
+
+###############################################################################
+# Prompt
+
+# use zimfw's git-info zstyle for prompts
+zmodule git-info
+
+# ZEPHYR (requires git-info)
+zmodule mzzn/zephyr-prompt -n zephyr
+
+# SPACESHIP
+# zmodule denysdovhan/spaceship-prompt -n spaceship
+
+# POWERLEVEL9K
+# zmodule powerlevel9k/powerlevel9k
+# zmodule bgrrtt/zimfw-powerlevel9k-config -n bgrrtt-powerlevel9k-config
+
+# POWERLEVEL10K
+# zmodule romkatv/powerlevel10k
+# zmodule bgrrtt/zimfw-powerlevel10k-config -n bgrrtt-powerlevel10k-config
+
+###############################################################################
+# Completion
+
+# libraries
+
+zmodule bgrrtt/zimfw-zsh-completions -n bgrrtt-zsh-completions
+zmodule zsh-users/zsh-completions
+
+# engine and plugins - DO NOT change order
+
+zmodule completion
+zmodule zsh-users/zsh-autosuggestions
+zmodule zdharma/fast-syntax-highlighting
+zmodule zsh-users/zsh-history-substring-search
+
+###############################################################################
+# Keybindings
+
+zmodule bgrrtt/zimfw-keybindings -n bgrrtt-keybindings
+
+###############################################################################
+# Aliases
+
+zmodule bgrrtt/zimfw-aliases -n bgrrtt-aliases
+
+###############################################################################
+###############################################################################
