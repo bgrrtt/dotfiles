@@ -1,6 +1,8 @@
 _HOLD*
 NOTES.md
 
+zsh/.zsh.d/.zsecrets
+
 zsh/.local/share/zsh/zshfw/*
 !zsh/.local/share/zsh/zshfw/.gitkeep
 
@@ -15,28 +17,38 @@ zsh/.zsh.d/.zim/*
 !zsh/.zsh.d/.zshrc
 !zsh/.zsh.d/.zimrc
 
-rclone/.config/rclone/rclone.conf
-sshrc/.sshrc.d/.config/rclone/rclone.conf
+alfred/.config/alfred/Alfred.alfredpreferences/preferences/local
+alfred/.config/alfred/Alfred.alfredpreferences/remote
+alfred/.config/alfred/Alfred.alfredpreferences/workflows
 
+git/.config/git/user
 
-
-# zsh/.zsh.d/.zim/*
-# !zsh/.zsh.d/.zim/zimfw.zsh
-
-# zsh/.zim/*
-# !zsh/.zim/zimfw.zsh
-
-vscode/.vscode/extensions/*
-!vscode/.vscode/extensions/.gitkeep
+karabiner/.config/karabiner/automatic_backups
 
 nvim/.config/nvim/autoload/*
 !nvim/.config/nvim/autoload/.gitkeep
+
+nvim/.config/coc/history.json
+nvim/.config/coc/mru
+
+nvim/.config/coc/extensions/*
+!nvim/.config/coc/extensions/db.json
+!nvim/.config/coc/extensions/package.json
+
+nvim/.config/nvim/spell/en.utf-8.add.spl
 
 nvim/.local/share/nvim/plugged/**
 !nvim/.local/share/nvim/plugged/.gitkeep
 
 nvim/.local/share/nvim/undo/**
 !nvim/.local/share/nvim/undo/.gitkeep
+
+rclone/.config/rclone/rclone.conf
+
+sshrc/.sshrc.d/.config/rclone/rclone.conf
+
+vscode/.vscode/extensions/*
+!vscode/.vscode/extensions/.gitkeep
 
 weechat/.weechat/*.log
 weechat/.weechat/logs/*

@@ -1,0 +1,12 @@
+# Ensure something similar is in your ~/.config/git/config or ~/.gitconfig
+#
+# [include]
+# 	path = ~/.config/git/user
+#
+# Set values, remove this line from this file, and remove .example from its filename
+[user]
+	email =
+	name =
+	signingKey =
+[github]
+	user =

@@ -1,0 +1,24 @@
+# Ensure something similar is in your ~/.config/git/config or ~/.gitconfig
+#
+# [include]
+# 	path = ~/.config/git/gitflow
+#
+[gitflow]
+	showcommands = true
+[gitflow "init"]
+	defaults = true
+[gitflow "feature.finish"]
+	keepremote = true
+	no-ff = true
+[gitflow "release.finish"]
+	keepremote = true
+	no-ff = true
+[gitflow "hotfix.finish"]
+	keepremote = true
+	no-ff = true
+[gitflow "support.finish"]
+	keepremote = true
+	no-ff = true
+[gitflow "bugfix.finish"]
+	keepremote = true
+	no-ff = true

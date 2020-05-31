@@ -1,0 +1,18 @@
+# Ensure something similar is in your ~/.config/git/config or ~/.gitconfig
+#
+# [include]
+# 	path = ~/.config/git/diffsofancy
+#
+[color]
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse

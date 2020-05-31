@@ -1,0 +1,27 @@
+# MUST use `--includes` to see values in included files
+# Example: `git config --global --includes --list`
+[user]
+	useConfigOnly = true
+[include]
+	path = ~/.config/git/user
+	path = ~/.config/git/gitflow
+	path = ~/.config/git/diffsofancy
+[core]
+	excludesfile = ~/.config/git/ignore
+	ignorecase = false
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[status]
+	submoduleSummary = true
+[alias]
+	tree = "log --color --graph --decorate --pretty=oneline --abbrev-commit"
+	# ...additional aliases are configured via zimfw/git and bgrrtt/zimfw-aliases
+[color]
+	ui = always
+	branch = always
+	diff = always
+	interactive = always
+	status = always
+	grep = always
+	pager = true
+	decorate = always
+	showbranch = always
