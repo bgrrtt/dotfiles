@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# if [ -n "$ZSH_VERSION" ]; then
+#    echo "zsh is available";
+# fi
+
+# if [ -n "$BASH_VERSION" ]; then
+#    echo "bash is available";
+# fi
+
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ll -C'
+
+export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vim/vimrc' | source \$MYVIMRC"
+export RCLONE_CONFIG="$SSHHOME/.sshrc.d/.config/rclone/rclone.conf"

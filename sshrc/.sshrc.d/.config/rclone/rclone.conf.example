@@ -1,0 +1,9 @@
+# example:bucket/path
+[example]
+type = s3
+provider = DigitalOcean
+env_auth = false
+access_key_id = x
+secret_access_key = x
+endpoint = nyc3.digitaloceanspaces.com
+acl = public-read
