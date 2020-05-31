@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+echo "RUN: cd ~ && stow -d .dotfiles -R bin brew karabiner nvim sshrc vscode zsh"
+cd ~ && stow -d .dotfiles -R bin brew karabiner nvim sshrc vscode zsh
