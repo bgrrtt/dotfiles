@@ -25,6 +25,9 @@ git/.config/git/user
 
 karabiner/.config/karabiner/automatic_backups
 
+karabiner/.local/share/karabiner/*
+!karabiner/.local/share/karabiner/.gitkeep
+
 nvim/.config/nvim/autoload/*
 !nvim/.config/nvim/autoload/.gitkeep
 
