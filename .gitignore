@@ -28,15 +28,16 @@ karabiner/.config/karabiner/automatic_backups
 karabiner/.local/share/karabiner/*
 !karabiner/.local/share/karabiner/.gitkeep
 
-nvim/.config/nvim/autoload/*
-!nvim/.config/nvim/autoload/.gitkeep
+nvim/.config/coc/*
+nvim/.config/coc/memos.json
 
-nvim/.config/coc/history.json
-nvim/.config/coc/mru
 
 nvim/.config/coc/extensions/*
 !nvim/.config/coc/extensions/db.json
 !nvim/.config/coc/extensions/package.json
+
+nvim/.config/nvim/autoload/*
+!nvim/.config/nvim/autoload/.gitkeep
 
 nvim/.config/nvim/spell/en.utf-8.add.spl
 
