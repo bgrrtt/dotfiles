@@ -1,6 +1,6 @@
 # Dotfiles v2020 LTS
 
-There are many dotfiles. These are mine. \*macOS only, for now.
+There are many dotfiles; these are mine. \*macOS only, for now.
 
 <!-- For other suggestions and opinions, check out [https://brandengarrett.com/uses](https://brandengarrett.com/uses). -->
 
@@ -24,9 +24,7 @@ There are many dotfiles. These are mine. \*macOS only, for now.
 
 -->
 
-<!--
-
-## Posterity
+## History
 
 - v2019, [bare repo](https://github.com/bgrrtt/dotfiles-2019)
 - v2018, [shell scripts](https://github.com/bgrrtt/dotfiles-2018)
@@ -35,7 +33,6 @@ There are many dotfiles. These are mine. \*macOS only, for now.
 - v2015, [prezto](https://github.com/sorin-ionescu/prezto)
 - v2014, [yadr](https://github.com/skwp/dotfiles)
 
--->
 
 ## Prerequisites
 
@@ -45,13 +42,11 @@ There are many dotfiles. These are mine. \*macOS only, for now.
    xcode-select --install
    ```
 
-2. Use `git` to clone this repo into your `$HOME` folder as `.dotfiles`. (or anything you'd like, but remember to update the directory you choose when using the `stow` commands below.)
+2. Use `git` to clone this repo into your `$HOME` folder as `.dotfiles`.
 
    ```zsh
    git clone git@github.com:bgrrtt/dotfiles.git $HOME/.dotfiles
    ```
-
-## Package Management
 
 3. Install Homebrew. See [https://brew.sh](https://brew.sh).
 
@@ -59,19 +54,37 @@ There are many dotfiles. These are mine. \*macOS only, for now.
    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
    ```
 
-4. Install Homebrew packages and macOS App Store packages.
+4. Sign in to the Mac App Store.
 
    ```zsh
-   open /System/Applications/App\ Store.app # And sign in to the Mac App Store
+   open /System/Applications/App\ Store.app
    ```
 
-   ```zsh
-   brew bundle --file=~/.dotfiles/brew/.config/brew/Brewfile
-   ```
+## Installation
 
-## Module Installation
+5. Use the installation script (or [run scripts manually](#)).
 
-5. Install module symlinks and directories with `stow`:
+  ```zsh
+
+  ./.dotfiles/dotfiles/.local/bin/dotfiles_install
+
+  ```
+
+<!--
+- http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html
+- https://stevenrbaker.com/tech/managing-dotfiles-with-gnu-stow.html
+- https://zihao.me/post/managing-dotfiles-with-gnu-stow/
+- http://juanda.me/managing-your-dotfiles-with-gnu-stow
+- https://writingco.de/blog/how-i-manage-my-dotfiles-using-gnu-stow/
+- https://github.com/mafrosis/dotfiles/blob/master/install.sh?
+- https://github.com/aspiers/shell-env
+- https://github.com/aspiers/git-config
+-
+-->
+
+<!--
+
+5. Install module symlinks and directories with GNU `stow`:
 
    ```zsh
    SYNOPSIS:
@@ -182,31 +195,23 @@ There are many dotfiles. These are mine. \*macOS only, for now.
      stow -d $HOME/.dotfiles -t $HOME -S zsh
      ```
 
-<!--
-
-## Settings Configuration
-
-6. Install configuration with newly installed scripts from the `bin` module.
-
-
-(rename these scripts, create just one install? Separate macOS settings into own step?)
-
-
-- Set macOS settings.
-
-  ```zsh
-   MacOSfile
-  ```
-
-- Set VS Code settings.
-
-  ```zsh
-  VSCodefile
-  ```
-
 -->
 
-<!-- ## WAIT! Manual Configuration Required. -->
+## MacOS Configuration
+
+6. Use the macOS settings script.
+
+  ```zsh
+
+  ./.dotfiles/macos/.local/bin/macos_update_settings
+
+  ```
+<!--
+## WAIT! Manual Configuration Required
+
+7. TK.
+
+-->
 
 ## Security
 
