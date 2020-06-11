@@ -54,6 +54,9 @@ sshrc/.sshrc.d/.config/rclone/rclone.conf
 vscode/.vscode/extensions/*
 !vscode/.vscode/extensions/.gitkeep
 
+vscode/.vscode/workspaces/*
+!vscode/.vscode/workspaces/.gitkeep
+
 weechat/.weechat/*.log
 weechat/.weechat/logs/*
 !weechat/.weechat/logs/.gitkeep
