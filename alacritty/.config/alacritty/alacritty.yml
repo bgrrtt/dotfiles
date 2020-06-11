@@ -31,17 +31,17 @@ font:
 
     # The normal (roman) font face to use.
     normal:
-      family: FuraCode Nerd Font
+      family: Fira Code
       style: Retina
 
     # The bold font face
     bold:
-      family: FuraCode Nerd Font
+      family: Fira Code
       style: Bold
 
     # The italic font face
     italic:
-      family: FuraCode Nerd Font
+      family: Fira Code
       style: Italic
 
 # =========================================================================== #
