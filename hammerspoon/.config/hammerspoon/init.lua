@@ -27,7 +27,7 @@ hs.window.animationDuration = 0
 -- Hotkeys
 -----------------------------------------------
 
-hs.hotkey.bind({"option"}, "space", function()
+hs.hotkey.bind({"alt"}, "space", function()
   local alacritty = hs.application.find('alacritty')
   if alacritty:isFrontmost() then
     alacritty:hide()
