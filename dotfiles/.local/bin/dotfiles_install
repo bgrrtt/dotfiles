@@ -1,4 +1,72 @@
 #!/usr/bin/env zsh
 
-echo "RUN: cd ~ && stow -d .dotfiles -R bin brew karabiner nvim sshrc vscode zsh"
-cd ~ && stow -d .dotfiles -R bin brew karabiner nvim sshrc vscode zsh
+() {
+
+    echo "============================================================="
+    echo "--"
+
+    echo "START: directories"
+
+    echo "RUN: mkdir -p ~/Archive"
+    mkdir -p ~/Archive
+
+    echo "RUN: mkdir -p ~/Software"
+    mkdir -p ~/Software
+
+    echo "RUN: mkdir -p ~/Work"
+    mkdir -p ~/Work
+
+    echo "--"
+
+    echo "START: brew bundle --file=~/.dotfiles/brew/.config/brew/Brewfile"
+
+    if [ -z ${GOPATH} ] ; then
+        export GOPATH="${HOME}/Software/go"
+    fi
+
+    brew bundle --file=~/.dotfiles/brew/.config/brew/Brewfile
+
+    echo "--"
+
+    echo "START: dotfiles_stow_modules"
+
+    dotfiles_stow_modules
+
+    echo "--"
+
+    # echo "START: remove bash based git completion"
+
+    # Remove conflicting git completions
+    # https://github.com/robbyrussell/oh-my-zsh/issues/1717#issuecomment-30299912, except it now must be manual
+    rm -f /usr/local/share/zsh/site-functions/_git
+    rm -f /usr/local/share/zsh/site-functions/git-completion.bash
+    # echo "Confirmed"
+
+    # echo "--"
+
+    # echo "START: ensure vscode config symlink"
+    # ------
+    local vscode_link="${HOME}/Library/Application Support/Code/User/settings.json"
+    if [ -L ${vscode_link} ] ; then
+        if [ -e ${vscode_link} ] ; then
+            # echo "Good link"
+            # echo "Confirmed"
+        else
+            # echo "Broken link"
+        fi
+    elif [ -e ${vscode_link} ] ; then
+        # echo "Not a link"
+        echo "Remove or move ${vscode_link} manually and rerun dotfiles_install"
+    else
+        echo "Missing"
+        stow -d $HOME/.dotfiles -t $HOME -R vscode
+        echo "RUN: stow -d .dotfiles -t $HOME -R vscode"
+    fi
+
+    # might not be needed as this is enabled globally...maybe
+    defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+
+    # echo "--"
+    echo "============================================================="
+
+}
