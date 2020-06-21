@@ -16,6 +16,7 @@ hyper = {"ctrl", "alt", "cmd", "shift"}
 
 amphetamine = require "amphetamine"
 wifiMenu = require "wifiMenu"
+longQuit = require "longQuit"
 
 -----------------------------------------------
 -- Window Management
