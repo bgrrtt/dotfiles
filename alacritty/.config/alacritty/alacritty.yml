@@ -19,6 +19,8 @@ visual_bell:
 
 key_bindings:
     - { key: Return,        mods: Command,        action: ToggleSimpleFullscreen }
+    - { key: Q,             mods: Command,        action: None                   }
+    - { key: W,             mods: Command,        action: None                   }
 
 # =========================================================================== #
 # Font #
@@ -31,17 +33,17 @@ font:
 
     # The normal (roman) font face to use.
     normal:
-      family: Fira Code
+      family: FiraCode Nerd Font
       style: Retina
 
     # The bold font face
     bold:
-      family: Fira Code
+      family: FiraCode Nerd Font
       style: Bold
 
     # The italic font face
     italic:
-      family: Fira Code
+      family: FiraCode Nerd Font
       style: Italic
 
 # =========================================================================== #
