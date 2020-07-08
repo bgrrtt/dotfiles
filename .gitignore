@@ -1,25 +1,11 @@
 _HOLD*
 NOTES.md
 
-zsh/.zsh.d/.zsecrets
-
-zsh/.local/share/zsh/zshfw/*
-!zsh/.local/share/zsh/zshfw/.gitkeep
-
-zsh/.zsh.d/**
-!zsh/.zsh.d/.zim
-
-zsh/.zsh.d/.zim/*
-!zsh/.zsh.d/.zim/zimfw.zsh
-
-!zsh/.zsh.d/.zlogin
-!zsh/.zsh.d/.zprofile
-!zsh/.zsh.d/.zshrc
-!zsh/.zsh.d/.zimrc
-
 alfred/.config/alfred/Alfred.alfredpreferences/preferences/local
 alfred/.config/alfred/Alfred.alfredpreferences/remote
 alfred/.config/alfred/Alfred.alfredpreferences/workflows
+
+gh/.config/gh/hosts.yml
 
 git/.config/git/user
 
@@ -31,15 +17,22 @@ karabiner/.local/share/karabiner/*
 nvim/.config/coc/*
 nvim/.config/coc/memos.json
 
-
 nvim/.config/coc/extensions/*
 !nvim/.config/coc/extensions/db.json
 !nvim/.config/coc/extensions/package.json
+
+nvim/.config/nvim/.netrwhist
 
 nvim/.config/nvim/autoload/*
 !nvim/.config/nvim/autoload/.gitkeep
 
 nvim/.config/nvim/spell/en.utf-8.add.spl
+
+nvim/.local/share/nvim/backup/**
+!nvim/.local/share/nvim/backup/.gitkeep
+
+nvim/.local/share/nvim/sessions/**
+!nvim/.local/share/nvim/sessions/.gitkeep
 
 nvim/.local/share/nvim/plugged/**
 !nvim/.local/share/nvim/plugged/.gitkeep
@@ -60,3 +53,19 @@ vscode/.vscode/workspaces/*
 weechat/.weechat/*.log
 weechat/.weechat/logs/*
 !weechat/.weechat/logs/.gitkeep
+
+zsh/.zsh.d/.zsecrets
+
+zsh/.local/share/zsh/zshfw/*
+!zsh/.local/share/zsh/zshfw/.gitkeep
+
+zsh/.zsh.d/**
+!zsh/.zsh.d/.zim
+
+zsh/.zsh.d/.zim/*
+!zsh/.zsh.d/.zim/zimfw.zsh
+
+!zsh/.zsh.d/.zlogin
+!zsh/.zsh.d/.zprofile
+!zsh/.zsh.d/.zshrc
+!zsh/.zsh.d/.zimrc
