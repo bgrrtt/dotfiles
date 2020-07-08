@@ -1,0 +1,4 @@
+checked_for_update_at: 2020-06-22T22:13:07.864586-04:00
+latest_release:
+    version: v0.10.0
+    url: https://github.com/cli/cli/releases/tag/v0.10.0
