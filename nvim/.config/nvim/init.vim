@@ -35,42 +35,40 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   " Explorer
   Plug 'preservim/nerdtree'
-
-  " Explorer Plugins, not ready
-  " === there is a nerdtree square bracket bug regardless of repo
-  " === Plug 'xuyuanp/nerdtree-git-plugin'
-  Plug 'tsony-tsonev/nerdtree-git-plugin' " fork of xuyuanp/ with git status colors
+  Plug 'tsony-tsonev/nerdtree-git-plugin' " fork of xuyuanp/nerdtree-git-plugin with git status colors
   Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
+  " Git
+  Plug 'tpope/vim-fugitive'
+
   " Search
-  " === Plug 'brooth/far.vim' ", not ready, not needed?
+  " === Plug 'brooth/far.vim' ", not ready
   Plug 'wincent/ferret'
   Plug 'wincent/loupe'
 
   " Syntax
-  Plug 'her/synicons.vim'
   Plug 'ryanoasis/vim-devicons'
   Plug 'sheerun/vim-polyglot'
 
-  " UI
-  Plug 'mhinz/vim-signify'
+  " Status Line
   Plug 'itchyny/lightline.vim'
+  Plug 'mengelbrecht/lightline-bufferline'
+
+  " UI
   " === Plug 'majutsushi/tagbar' ", not ready
   " === Plug 'mbbill/undotree'   ", not ready
 
   " UX
-  " === https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
-  " === https://engagor.github.io/blog/2018/02/21/why-vim-doesnt-need-multiple-cursors
-  " === Plug 'terryma/vim-multiple-cursors' ", not ready, not needed?
-  Plug 'camspiers/animate.vim'
-  Plug 'camspiers/lens.vim'
+  " === Plug 'camspiers/animate.vim' ", not ready
+  " === Plug 'camspiers/lens.vim'    ", not ready
   Plug 'ntpeters/vim-better-whitespace'
   Plug 'preservim/nerdcommenter'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-surround'
   Plug 'wincent/terminus'
 
   " Applications
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
-  " === Plug 'junegunn/goyo.vim' ", not needed?
   Plug 'mhinz/vim-startify'
   Plug 'vimwiki/vimwiki'
 
