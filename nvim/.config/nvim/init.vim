@@ -225,18 +225,10 @@ nnoremap <Leader>es :tabedit $HOME/.config/nvim/spell<cr>
 
 " Autocommands ================================================================ {{{
 
-augroup source_vimrc
+augroup source_settings_on_save
   autocmd!
   autocmd BufWritePost $MYVIMRC source %
-augroup END
-
-augroup source_configs
-  autocmd!
-  autocmd BufWritePost $HOME/.config/nvim/config/**/*.vim source %
-augroup END
-
-augroup source_spelling
-  autocmd!
+  autocmd BufWritePost $HOME/.config/nvim/ftplugin/*.vim source %
   autocmd BufWritePost $HOME/.config/nvim/spell/* mkspell! %
 augroup END
 
