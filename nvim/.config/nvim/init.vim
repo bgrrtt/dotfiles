@@ -12,71 +12,6 @@ filetype plugin indent on
 " }}}
 
 
-" Plugins ===================================================================== {{{
-
-" Install Plug to manage plugins
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall
-endif
-
-" Specify directory for plugin files
-call plug#begin('~/.local/share/nvim/plugged')
-
-  " Plug
-  Plug 'junegunn/vim-plug'
-
-  " Colors
-  Plug 'lifepillar/vim-solarized8'
-
-  " Completion Engine
-  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-
-  " Explorer
-  Plug 'preservim/nerdtree'
-  Plug 'tsony-tsonev/nerdtree-git-plugin' " fork of xuyuanp/nerdtree-git-plugin with git status colors
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-
-  " Git
-  Plug 'tpope/vim-fugitive'
-
-  " Search
-  " === Plug 'brooth/far.vim' ", not ready
-  Plug 'wincent/ferret'
-  Plug 'wincent/loupe'
-
-  " Syntax
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'sheerun/vim-polyglot'
-
-  " Status Line
-  Plug 'itchyny/lightline.vim'
-  Plug 'mengelbrecht/lightline-bufferline'
-
-  " UI
-  " === Plug 'majutsushi/tagbar' ", not ready
-  " === Plug 'mbbill/undotree'   ", not ready
-
-  " UX
-  " === Plug 'camspiers/animate.vim' ", not ready
-  " === Plug 'camspiers/lens.vim'    ", not ready
-  Plug 'ntpeters/vim-better-whitespace'
-  Plug 'preservim/nerdcommenter'
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-surround'
-  Plug 'wincent/terminus'
-
-  " Applications
-  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
-  Plug 'mhinz/vim-startify'
-  Plug 'vimwiki/vimwiki'
-
-call plug#end()
-
-" }}}
-
-
 " General ===================================================================== {{{
 
 " Syntax
@@ -241,43 +176,7 @@ augroup END
 " }}}
 
 
-" Filetypes =================================================================== {{{
-
-augroup filetype_vim
-  autocmd!
-  autocmd FileType vim setlocal foldmethod=marker
-  autocmd FileType vim set foldlevelstart=0
-  autocmd FileType vim setlocal foldmarker={{{,}}}
-augroup END
-
-augroup filetype_markdown
-  autocmd!
-  autocmd BufRead,BufNewFile *.md setlocal spell complete+=kspell
-augroup END
-
-" }}}
-
-
-" Folding ===================================================================== {{{
-
-function! FoldText()
-    let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
-    let lines_count = v:foldend - v:foldstart + 1
-    let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . '   |'
-    let foldchar = matchstr(&fillchars, 'fold:\zs.')
-    let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-    let foldtextend = lines_count_text . repeat(foldchar, 8)
-    let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-    return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
-endfunction
-
-set foldtext=FoldText()
-
-" }}}
-
-
-" Advanced Configuration ====================================================== {{{
-
+" Plugin Configuration ======================================================== {{{
 
 " Plug ------------------------------------------------------------------------ {{{
 
@@ -356,15 +255,26 @@ let g:startify_custom_header = [
 \ '',
 \ ]
 
+let g:startify_custom_header = [
+\ '',
+\ ' ██████╗  ██████╗ ███╗   ██╗████████╗    ██████╗  █████╗ ███╗   ██╗██╗ ██████╗    ██╗',
+\ ' ██╔══██╗██╔═══██╗████╗  ██║╚══██╔══╝    ██╔══██╗██╔══██╗████╗  ██║██║██╔════╝    ██║',
+\ ' ██║  ██║██║   ██║██╔██╗ ██║   ██║       ██████╔╝███████║██╔██╗ ██║██║██║         ██║',
+\ ' ██║  ██║██║   ██║██║╚██╗██║   ██║       ██╔═══╝ ██╔══██║██║╚██╗██║██║██║         ╚═╝',
+\ ' ██████╔╝╚██████╔╝██║ ╚████║   ██║       ██║     ██║  ██║██║ ╚████║██║╚██████╗    ██╗',
+\ ' ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝   ╚═╝       ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝ ╚═════╝    ╚═╝',
+\ '',
+\ ]
+
 " let g:startify_custom_header = ['']
 let g:startify_custom_footer = ['']
 let g:startify_files_number = 5
 
 let g:startify_lists = [
-      \ { 'type': 'sessions',  'header': ['   Sessions']       },
-      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-      \ { 'type': 'files',     'header': [' MRU']            },
-      \ { 'type': 'commands',  'header': ['   Commands']       },
+      \ { 'type': 'sessions',  'header': [' Sessions']         },
+      \ { 'type': 'bookmarks', 'header': [' Bookmarks']        },
+      \ { 'type': 'files',     'header': [' MRU']              },
+      \ { 'type': 'commands',  'header': [' Commands']         },
       \ ]
 
 let g:startify_session_dir = '~/.local/share/nvim/sessions' " Does this work?
@@ -403,16 +313,14 @@ let g:NERDTreeGitStatusNodeColorization = 1
 let g:NERDTreeGitStatusWithFlags = 1
 
 let g:NERDTreeColorMapCustom = {
-    \ "Modified"  : "#528AB3",
-    \ "Staged"    : "#538B54",
-    \ "Untracked" : "#BE5849",
+    \ "Modified"  : "#b58900",
+    \ "Staged"    : "#6c71c4",
+    \ "Untracked" : "#859900",
     \ "Dirty"     : "#b58900",
     \ "Clean"     : "#87939A",
     \ "Ignored"   : "#808080"
     \ }
 
-
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:NERDTreeGitStatusNodeColorization = 1
 let g:NERDTreeGitStatusWithFlags = 1
 
@@ -448,40 +356,42 @@ let g:lightline = {
       \             [ 'gitbranch', 'cocstatus', 'coccurrentfunction', 'readonly', 'filename', 'modified', 'spell' ] ],
       \   'right': [ ['lineinfo'], ['percent'], ['filetype' ] ]
       \ },
+      \ 'tabline': {
+      \   'left': [ ['buffers'] ],
+      \   'right': [ ['close'] ]
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
       \   'coccurrentfunction': 'CocLightlineCurrentFunction',
       \   'gitbranch': 'fugitive#head'
-      \ },
+      \ }
       \ }
 
-" }}}
-
-
-" Signify --------------------------------------------------------------------- {{{
-
-let g:signify_vcs_list = [ 'git' ]
-let g:signify_realtime = 1
-let g:signify_line_highlight = 0
+autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
+set showtabline=2
+set confirm
 
 " }}}
 
 " DevIcons -------------------------------------------------------------------- {{{
 
 let g:webdevicons_enable = 1
-" let g:webdevicons_conceal_nerdtree_brackets = 0
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
-
-if exists("g:loaded_webdevicons")
-	call webdevicons#refresh()
-endif
 
 " }}}
 
 " Better Whitespace ----------------------------------------------------------- {{{
 
 let g:better_whitespace_enabled = 1
-" let g:strip_whitespace_on_save = 1
+let g:strip_whitespace_on_save = 1
 
 " }}}
 
@@ -505,6 +415,5 @@ let g:solarized_statusline = 'flat'
 let g:solarized_old_cursor_style = 1
 
 colorscheme solarized8
-set guifont=Fura\ Code\ Nerd\ Font\ Medium\ 16
 
 " }}}
