@@ -1,11 +1,15 @@
-
+"
 " nvim/init.vim
+"
+"
 
-" future dev
-" look into:
-" https://alex.dzyoba.com/blog/vim-revamp/
-" https://afnan.io/post/2018-04-12-my-neovim-development-setup/
-" https://github.com/josemarluedke/vimfiles/blob/master/vimrc
+
+" viMproved =================================================================== {{{
+
+set nocompatible
+filetype plugin indent on
+
+" }}}
 
 
 " Plugins ===================================================================== {{{
@@ -75,17 +79,10 @@ call plug#end()
 " }}}
 
 
-" viMproved =================================================================== {{{
-
-set nocompatible
-filetype indent on
-filetype plugin on
+" General ===================================================================== {{{
 
 " Syntax
 syntax on
-if !exists('g:syntax_on')
-	syntax enable
-endif
 
 " Colors
 set termguicolors
@@ -139,7 +136,7 @@ set wildmode=full
 set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
 
 " Backups
-set backupdir=$HOME/.local/share/nvim/backups// " Update to `backup` so nvim|xdg default
+set backupdir=$HOME/.local/share/nvim/backup//
 set nobackup
 set nowritebackup
 
@@ -157,8 +154,6 @@ set spelllang=en
 set spellfile=$HOME/.config/nvim/spell/en.utf-8.add
 hi clear SpellBad
 hi SpellBad cterm=underline
-autocmd FileType gitcommit setlocal spell
-autocmd FileType markdown setlocal spell
 
 " The // at the end of the directory name tells Vim to use
 " the absolute path to the file to create the swap file so
