@@ -176,6 +176,71 @@ augroup END
 " }}}
 
 
+" Plugins ===================================================================== {{{
+
+" Install Plug to manage plugins
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall
+endif
+
+" Specify directory for plugin files
+call plug#begin('~/.local/share/nvim/plugged')
+
+  " Plug
+  Plug 'junegunn/vim-plug'
+
+  " Colors
+  Plug 'lifepillar/vim-solarized8'
+
+  " Completion Engine
+  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+
+  " Explorer
+  Plug 'preservim/nerdtree'
+  Plug 'tsony-tsonev/nerdtree-git-plugin' " fork of xuyuanp/nerdtree-git-plugin with git status colors
+  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+  " Git
+  Plug 'tpope/vim-fugitive'
+
+  " Search
+  " === Plug 'brooth/far.vim' ", not ready
+  Plug 'wincent/ferret'
+  Plug 'wincent/loupe'
+
+  " Syntax
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'sheerun/vim-polyglot'
+
+  " Status Line
+  Plug 'itchyny/lightline.vim'
+  Plug 'mengelbrecht/lightline-bufferline'
+
+  " UI
+  " === Plug 'majutsushi/tagbar' ", not ready
+  " === Plug 'mbbill/undotree'   ", not ready
+
+  " UX
+  " === Plug 'camspiers/animate.vim' ", not ready
+  " === Plug 'camspiers/lens.vim'    ", not ready
+  Plug 'ntpeters/vim-better-whitespace'
+  Plug 'preservim/nerdcommenter'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-surround'
+  Plug 'wincent/terminus'
+
+  " Applications
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
+  Plug 'mhinz/vim-startify'
+  Plug 'vimwiki/vimwiki'
+
+call plug#end()
+
+" }}}
+
+
 " Plugin Configuration ======================================================== {{{
 
 " Plug ------------------------------------------------------------------------ {{{
