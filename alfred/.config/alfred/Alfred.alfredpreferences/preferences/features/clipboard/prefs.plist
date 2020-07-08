@@ -6,7 +6,9 @@
 	<integer>1</integer>
 	<key>persistFor</key>
 	<integer>3</integer>
-	<key>persistForFiles</key>
-	<integer>1</integer>
+	<key>snippetsAtTop</key>
+	<false/>
+	<key>snippetsWhenSearching</key>
+	<false/>
 </dict>
 </plist>
