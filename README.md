@@ -1,42 +1,17 @@
 # Dotfiles v2020 LTS
 
-There are many dotfiles; these are mine. \*macOS only, for now.
-
-<!-- For other suggestions and opinions, check out [https://brandengarrett.com/uses](https://brandengarrett.com/uses). -->
+There are many dotfiles; these are mine. \*macOS only.
 
 <!--
 ## Articles
 
 - What Happens When: Terminal Emulator
 - What Happens When: Zshell
-- The Single Most Important App for Knowledge Workers (alfred)
-- Hyper/Super (CAPSLOCK) Navigation Saved My Life
- -->
-
-<!--
-
-## Inspiration
-
-- https://frkl.io/blog/managing-dotfiles
-- https://www.taniarascia.com/setting-up-a-brand-new-mac-for-development/
-- https://github.com/skwp/dotfiles
-- https://github.com/mathiasbynens/dotfiles
-
 -->
-
-## History
-
-- v2019, [bare repo](https://github.com/bgrrtt/dotfiles-2019)
-- v2018, [shell scripts](https://github.com/bgrrtt/dotfiles-2018)
-- v2017, [macOS-provisioner](https://github.com/bgrrtt/macOS-provisioner)
-- v2016, [zimfw](https://github.com/zimfw/zimfw)
-- v2015, [prezto](https://github.com/sorin-ionescu/prezto)
-- v2014, [yadr](https://github.com/skwp/dotfiles)
-
 
 ## Prerequisites
 
-1. Install xcode-select. See `/Library/Developer/CommandLineTools/usr/bin/` for currently installed xcode cli tools (executables).
+1. Install xcode-select cli tools. See `/Library/Developer/CommandLineTools/usr/bin/` for installed executables.
 
    ```zsh
    xcode-select --install
@@ -62,16 +37,65 @@ There are many dotfiles; these are mine. \*macOS only, for now.
 
 ## Installation
 
-5. Use the installation script (or [run scripts manually](#)).
+5. Use the installation script. See [script](./dotfiles/.local/bin/dotfiles_install) for details.
+
+   ```zsh
+   ~/.dotfiles/dotfiles/.local/bin/dotfiles_install
+   ```
+
+   - Creates additional folders in `$HOME` directory.
+   - Runs `brew bundle --file=~/.dotfiles/brew/.config/brew/Brewfile`. See [script](./brew/.config/brew/Brewfile) and [bundle](https://github.com/Homebrew/homebrew-bundle) for details.
+   - Runs `~/.dotfiles/dotfiles/.local/bin/dotfiles_stow_modules`. See [script](./dotfiles/.local/bin/dotfiles_stow_modules) for details.
+   - Fixes bash based git completions for Z shell.
+   - Ensures VS Code configuration.
+
+6) Install macOS settings. See [script](./macos/.local/bin/macos_update_settings) for details.
+
+   ```zsh
+   ~/.dotfiles/macos/.local/bin/macos_update_settings
+   ```
+
+   - Super fast key repeat
+   - ...
+
+7) Use included [zimfw.zsh](./zsh/.zsh.d/.zim/zimfw.zsh) to finish installation of [zimfw](https://github.com/zimfw) on local system.
+
+   ```zsh
+   zsh ~/.dotfiles/zsh/.zsh.d/.zim/zimfw.zsh install
+   zsh ~/.dotfiles/zsh/.zsh.d/.zim/zimfw.zsh upgrade
+   ```
+
+8) Restart your terminal emulator (Alacritty) and enjoy.
+
+## Usage
+
+### [GNU Stow](https://www.gnu.org/software/stow)
+
+Dotfiles 2020 LTS uses `stow`, a "symlink farmer", to mange itself. `stow` applies folder structures, symlinks, and files to a **target** directory (`$HOME`) from one or more "packages" in the (`$HOME/.dotfiles`) **dictionary** directory.
+
+```zsh
+stow -d $HOME/.dotfiles -t $HOME -S <package>
+```
+
+- Simulate `stow` with `-n` and increase verbosity to 2 or 3 with `--verbose=N` to see changes to your filesystem before actually making changes to your filesystem.
 
   ```zsh
-
-  ./.dotfiles/dotfiles/.local/bin/dotfiles_install
-
+  stow -n --verbose=2 -d $HOME/.dotfiles -t $HOME -S example
   ```
 
+- Opting for a `-R` instead of `-S` will first "unstow", then "restow" updates in the package since the last `stow`. Additionally, `-D` will remove the exact structure defined in the package.
+
+  ```zsh
+  stow -d $HOME/.dotfiles -t $HOME -R <package>
+  stow -d $HOME/.dotfiles -t $HOME -D <package>
+  ```
+
+See the following articles on using `stow` to setup your own dotfiles:
+
+- [[2012] Brandon Invergo's Guide](http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html)
+- ...
+
 <!--
-- http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html
 - https://stevenrbaker.com/tech/managing-dotfiles-with-gnu-stow.html
 - https://zihao.me/post/managing-dotfiles-with-gnu-stow/
 - http://juanda.me/managing-your-dotfiles-with-gnu-stow
@@ -79,153 +103,84 @@ There are many dotfiles; these are mine. \*macOS only, for now.
 - https://github.com/mafrosis/dotfiles/blob/master/install.sh?
 - https://github.com/aspiers/shell-env
 - https://github.com/aspiers/git-config
--
+- [https://github.com/nickjj/dotfiles](https://github.com/nickjj/dotfiles)
+- [https://github.com/moopet/dotfiles](https://github.com/moopet/dotfiles)
 -->
+
+### [Z shell](http://zsh.sourceforge.net/Doc/Release/zsh_toc.html) and the [Zsh IMproved FrameWork](https://github.com/zimfw)
+
+While Dotfiles 2020 LTS configures a myriad of technologies, the most important is Z shell. The "shell" is the program that gets loaded into/after opening a terminal emulator like Alacritty or iTerm2. [`bash`](https://www.gnu.org/software/bash/) has been the undisputed default shell on many OSs for a long time (and so, still important to understand), but as of 2019, Z shell is the default shell on macOS. <!-- And for [good reasons](https://brandengarrett.com/concepts/zsh). -->
 
 <!--
 
-5. Install module symlinks and directories with GNU `stow`:
+## Packages
 
-   ```zsh
-   SYNOPSIS:
+### [Alacritty](https://#)
 
-      stow [OPTION ...] [-D|-S|-R] PACKAGE
+Super speedy terminal emulator.
 
-   OPTIONS:
+### [git](https://#)
 
-      -d DIR, --dir=DIR     Set stow dir to DIR (default is current dir)
-      -t DIR, --target=DIR  Set target to DIR (default is parent of stow dir)
+Please version control your code. Please use git to do so.
 
-      -S, --stow            Stow the package names that follow this option
-      -D, --delete          Unstow the package names that follow this option
-      -R, --restow          Restow (like stow -D followed by stow -S)
+### [Hammerspoon](https://https://www.hammerspoon.org)
 
-      -n, --no, --simulate  Do not actually make any filesystem changes
-      -v, --verbose[=N]     Increase verbosity (levels are from 0 to 5)
-      -h, --help            Show this help
+MacOS customization like you've always dreamed. Check this out.
 
-   Stow home page: <http://www.gnu.org/software/stow/>
-   ```
+### [Karabiner Elements](https://https://karabiner-elements.pqrs.org)
 
-   _Simulate `stow` with `-n` and increase verbosity to 2 or 3 with `--verbose=N` to see changes to your filesystem before actually making changes to your filesystem with the following modules._
+MacOS keyboard customization. Long live the Hyper key!
 
-   ```zsh
-   stow -n --verbose=2 -d $HOME/.dotfiles -t $HOME -S example
-   ```
+### [nvim](https://#)
 
-   Modules:
+Never in a GUI. Not intended for servers. Used more and more everyday. The sane choice once internalizing certain development principles. Verb, Modifier, Object.
 
-   - **Alacritty**
+### [sshrc](https://#)
 
-     Super speedy terminal emulator.
+Bring a minimal dotfile configuration with you when entering (and leaving) a server. Contains "compatible" Vim configuration for use on linux servers.
 
-     ```zsh
-     stow -d $HOME/.dotfiles -t $HOME -S alacritty
-     ```
+### [tmux](https://#)
 
-   - **bin**
+A better way to use and organize a terminal emulator. Needed for tabs and splits when using Alacritty.
 
-     Scripts and tools I've built or gathered from others.
+### [VS Code](https://#)
 
-     ```zsh
-     stow -d $HOME/.dotfiles -t $HOME -S bin
-     ```
+Text editor. Workhorse. Friend. Enemy.
 
-   - **git**
+### [Zsh](http://zsh.sourceforge.net/Doc/Release/zsh_toc.html) and [Zim Framework](https://github.com/zimfw/zimfw)
 
-     Please version control your code. Please use git to do so.
-
-     ```zsh
-     stow -d $HOME/.dotfiles -t $HOME -S git
-     ```
-
-   - **Hammerspoon**
-
-     MacOS customization like you've always dreamed. Check this out.
-
-     ```zsh
-     stow -d $HOME/.dotfiles -t $HOME -S hammerspoon
-     ```
-
-   - **Karabiner Elements**
-
-     MacOS keyboard customization. Long live the Hyper key!
-
-     ```zsh
-     stow -d $HOME/.dotfiles -t $HOME -S karabiner
-     ```
-
-   - **nvim**
-
-     Never in a GUI. Not intended for servers. Used more and more everyday. The sane choice once internalizing certain development principles. Verb, Modifier, Object.
-
-     ```zsh
-     stow -d $HOME/.dotfiles -t $HOME -S nvim
-     ```
-
-   - **sshrc**
-
-     Bring a minimal dotfile configuration with you when entering (and leaving) a server. Contains "compatible" Vim configuration for use on linux servers.
-
-     ```zsh
-     stow -d $HOME/.dotfiles -t $HOME -S sshrc
-     ```
-
-   - **tmux**
-
-     A better way to use and organize a terminal emulator. Needed for tabs and splits when using Alacritty.
-
-     ```zsh
-     stow -d $HOME/.dotfiles -t $HOME -S sshrc
-     ```
-
-   - **VS Code**
-
-     TK. Text editor. Workhorse. Friend. Enemy.
-
-     ```zsh
-     stow -d $HOME/.dotfiles -t $HOME -S vscode
-     ```
-
-   - **zsh**
-
-     The terminal emulator's shell interface. Critical. Highly configured through the Zim Framework for zsh.
-
-     ```zsh
-     stow -d $HOME/.dotfiles -t $HOME -S zsh
-     ```
+The terminal emulator's shell interface. Critical. Highly configured through the Zim Framework for zsh.
 
 -->
 
-## MacOS Configuration
+## Additional Resources
 
-6. Use the macOS settings script.
+- [mika/zsh-pony](https://github.com/mika/zsh-pony)
+- [jlevy/the-art-of-command-line](https://github.com/jlevy/the-art-of-command-line)
+- [drduh/macOS-Security-and-Privacy-Guide](https://github.com/drduh/macOS-Security-and-Privacy-Guide)
 
-  ```zsh
+## Legacy
 
-  ./.dotfiles/macos/.local/bin/macos_update_settings
+- v2019, [bare repo](https://github.com/bgrrtt/dotfiles-2019)
+- v2018, [shell scripts](https://github.com/bgrrtt/dotfiles-2018)
+- v2017, [macOS-provisioner](https://github.com/bgrrtt/macOS-provisioner)
+- v2016, [zimfw](https://github.com/zimfw/zimfw)
+- v2015, [prezto](https://github.com/sorin-ionescu/prezto)
+- v2014, [yadr](https://github.com/skwp/dotfiles)
 
-  ```
 <!--
-## WAIT! Manual Configuration Required
+## Inspiration
 
-7. TK.
-
+- https://frkl.io/blog/managing-dotfiles
+- https://www.taniarascia.com/setting-up-a-brand-new-mac-for-development/
+- https://github.com/skwp/dotfiles
+- https://github.com/mathiasbynens/dotfiles
+- https://github.com/thoughtbot/dotfiles
+- https://github.com/thoughtbot/laptop
 -->
-
-## Security
-
-- https://github.com/drduh/macOS-Security-and-Privacy-Guide
 
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
-<!--
-
-## TODO
-
-- [https://github.com/nickjj/dotfiles](https://github.com/nickjj/dotfiles)
-- [https://github.com/moopet/dotfiles](https://github.com/moopet/dotfiles)
-
--->
+Copyright © 2020 Branden Garrett
