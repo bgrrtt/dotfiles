@@ -12,5 +12,7 @@
 	<true/>
 	<key>nativedarkmode</key>
 	<true/>
+	<key>visibleresults</key>
+	<integer>4</integer>
 </dict>
 </plist>
