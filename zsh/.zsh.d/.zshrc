@@ -27,7 +27,6 @@ export TERM=xterm-256color
 
 ###############################################################################
 # Path
-
 # https://superuser.com/questions/1447936/what-is-the-difference-between-zshs-path-and-path
 # Automatically remove duplicates from these arrays
 typeset -U path
@@ -54,25 +53,6 @@ export fpath=(
   $fpath
 )
 export FPATH
-
-###############################################################################
-# Go
-export GOPATH="${HOME}/Software/go"
-
-###############################################################################
-# Editor
-export EDITOR=nvim
-
-###############################################################################
-# Git
-export GIT_EDITOR=nvim
-export GITHUB_USER="$(git config --global github.user)"
-
-##############################################################################
-# You Should Use
-export YSU_HARDCORE=1
-export YSU_IGNORED_ALIASES=("g" "brew install" "cask install" ":q")
-export YSU_IGNORED_GLOBAL_ALIASES=("...")
 
 ##############################################################################
 # Zsh
@@ -116,7 +96,7 @@ zstyle ':completion:*' hosts off
 
 
 ##############################################################################
-# Zim Framework Configuration
+# Zsh IMproved FrameWork
 
 # --------------
 # zim completion
