@@ -17,6 +17,11 @@
 # for general knowledge: https://www.viget.com/articles/zsh-config-productivity-plugins-for-mac-oss-default-shell/
 # for aliases at the end: https://dev.to/thbe/enhance-your-macos-terminal-p10k-1g3m
 
+
+###############################################################################
+# Secrets
+source $HOME/.zsh.d/.zsecrets
+
 ###############################################################################
 # Debug
 # set -x
