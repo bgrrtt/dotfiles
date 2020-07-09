@@ -17,6 +17,38 @@
 # for general knowledge: https://www.viget.com/articles/zsh-config-productivity-plugins-for-mac-oss-default-shell/
 # for aliases at the end: https://dev.to/thbe/enhance-your-macos-terminal-p10k-1g3m
 
+# https://misc.flogisoft.com/bash/tip_colors_and_formatting
+# echo -e "\e[1mbold\e[0m"
+# echo -e "\e[2mdim\e[0m"
+# echo -e "\e[3mitalic\e[0m"
+# echo -e "\e[1;3mbold italic\e[0m"
+# echo -e "\e[4munderline\e[0m"
+# echo -e "\e[5mblink\e[0m"
+# echo -e "\e[7minverted\e[0m"
+# echo -e "\e[9mstrikethrough\e[0m"
+# echo -e "\e[31mHello World\e[0m"
+# echo -e "\033[31mHello\e[0m World\e[0m"
+
+# ---------------------------
+# Solarized Dark
+# ---------------------------
+# Base03	#002b36		brblack
+# Base02	#073642		black
+# Base01	#586e75		brgreen
+# Base00	#657b83		bryellow
+# Base0   #839496		brblue
+# Base1   #93a1a1		brcyan
+# Base2   #eee8d5		white
+# Base3   #fdf6e3		brwhite
+# Yellow	#b58900		yellow
+# Orange	#cb4b16		brred
+# Red		  #dc322f		red
+# Magenta	#d33682		magenta
+# Violet	#6c71c4		brmagenta
+# Blue	  #268bd2		blue
+# Cyan	  #2aa198		cyan
+# Green	  #859900		green
+# ---------------------------
 
 ###############################################################################
 # Secrets
