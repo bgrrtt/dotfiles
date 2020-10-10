@@ -1,4 +1,4 @@
-# Dotfiles v2020 LTS
+# Dotfiles LTS
 
 There are many dotfiles; these are mine. \*macOS only.
 
@@ -40,29 +40,28 @@ There are many dotfiles; these are mine. \*macOS only.
 5. Use the installation script. See [script](./dotfiles/.local/bin/dotfiles_install) for details.
 
    ```zsh
-   ~/.dotfiles/dotfiles/.local/bin/dotfiles_install
+   zsh ~/.dotfiles/dotfiles/.local/bin/dotfiles_install
    ```
 
-   - Creates additional folders in `$HOME` directory.
+   <!-- - Creates additional folders in `$HOME` directory.
    - Runs `brew bundle --file=~/.dotfiles/brew/.config/brew/Brewfile`. See [script](./brew/.config/brew/Brewfile) and [bundle](https://github.com/Homebrew/homebrew-bundle) for details.
    - Runs `~/.dotfiles/dotfiles/.local/bin/dotfiles_stow_modules`. See [script](./dotfiles/.local/bin/dotfiles_stow_modules) for details.
    - Fixes bash based git completions for Z shell.
-   - Ensures VS Code configuration.
+   - Ensures VS Code configuration. -->
 
 6) Install macOS settings. See [script](./macos/.local/bin/macos_update_settings) for details.
 
    ```zsh
-   ~/.dotfiles/macos/.local/bin/macos_update_settings
+   zsh ~/.dotfiles/macos/.local/bin/macos_update_settings
    ```
 
-   - Super fast key repeat
-   - ...
+   <!-- - Super fast key repeat
+   - ... -->
 
-7) Use included [zimfw.zsh](./zsh/.zsh.d/.zim/zimfw.zsh) to finish installation of [zimfw](https://github.com/zimfw) on local system.
+7) Use included [zimfw.zsh](./zsh/.zsh.d/.zim/zimfw.zsh) to finish installation of [zimfw](https://github.com/zimfw) on this environment.
 
    ```zsh
    zsh ~/.dotfiles/zsh/.zsh.d/.zim/zimfw.zsh install
-   zsh ~/.dotfiles/zsh/.zsh.d/.zim/zimfw.zsh upgrade
    ```
 
 8) Restart your terminal emulator (Alacritty) and enjoy.
@@ -76,8 +75,9 @@ Dotfiles 2020 LTS uses `stow`, a "symlink farmer", to mange itself. `stow` appli
 ```zsh
 stow -d $HOME/.dotfiles -t $HOME -S <package>
 ```
+<!--
 
-- Simulate `stow` with `-n` and increase verbosity to 2 or 3 with `--verbose=N` to see changes to your filesystem before actually making changes to your filesystem.
+- Simulate `stow` with `-n` and increase verbosity to 2 or 3 in order to see changes to your filesystem before actually making changes to your filesystem.
 
   ```zsh
   stow -n --verbose=2 -d $HOME/.dotfiles -t $HOME -S example
@@ -87,13 +87,16 @@ stow -d $HOME/.dotfiles -t $HOME -S <package>
 
   ```zsh
   stow -d $HOME/.dotfiles -t $HOME -R <package>
-  stow -d $HOME/.dotfiles -t $HOME -D <package>
   ```
 
-See the following articles on using `stow` to setup your own dotfiles:
+  ```zsh
+  stow -d $HOME/.dotfiles -t $HOME -D <package>
+  ``` -->
+
+<!-- See the following articles on using `stow` to setup your own dotfiles:
 
 - [[2012] Brandon Invergo's Guide](http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html)
-- ...
+- ... -->
 
 <!--
 - https://stevenrbaker.com/tech/managing-dotfiles-with-gnu-stow.html
@@ -103,13 +106,14 @@ See the following articles on using `stow` to setup your own dotfiles:
 - https://github.com/mafrosis/dotfiles/blob/master/install.sh?
 - https://github.com/aspiers/shell-env
 - https://github.com/aspiers/git-config
-- [https://github.com/nickjj/dotfiles](https://github.com/nickjj/dotfiles)
-- [https://github.com/moopet/dotfiles](https://github.com/moopet/dotfiles)
+- https://github.com/nickjj/dotfiles
+- https://github.com/moopet/dotfiles
+- https://github.com/PierreMarchand20/dotfiles
 -->
 
 ### [Z shell](http://zsh.sourceforge.net/Doc/Release/zsh_toc.html) and the [Zsh IMproved FrameWork](https://github.com/zimfw)
 
-While Dotfiles 2020 LTS configures a myriad of technologies, the most important is Z shell. The "shell" is the program that gets loaded into/after opening a terminal emulator like Alacritty or iTerm2. [`bash`](https://www.gnu.org/software/bash/) has been the undisputed default shell on many OSs for a long time (and so, still important to understand), but as of 2019, Z shell is the default shell on macOS. <!-- And for [good reasons](https://brandengarrett.com/concepts/zsh). -->
+While Dotfiles 2020 LTS configures a myriad of technologies, the most important is Z shell. The "shell" is the program that gets loaded into/after opening a terminal emulator like Alacritty or iTerm2. [`bash`](https://www.gnu.org/software/bash/) has been the undisputed default shell on many OSs for a long time (and so, still important to understand), but as of 2019, Z shell is the default shell on macOS. <!-- And for [good reasons](https://brandengarrett.com/awareness/zsh). -->
 
 <!--
 
@@ -159,6 +163,7 @@ The terminal emulator's shell interface. Critical. Highly configured through the
 - [jlevy/the-art-of-command-line](https://github.com/jlevy/the-art-of-command-line)
 - [drduh/macOS-Security-and-Privacy-Guide](https://github.com/drduh/macOS-Security-and-Privacy-Guide)
 
+<!--
 ## Legacy
 
 - v2019, [bare repo](https://github.com/bgrrtt/dotfiles-2019)
@@ -167,6 +172,7 @@ The terminal emulator's shell interface. Critical. Highly configured through the
 - v2016, [zimfw](https://github.com/zimfw/zimfw)
 - v2015, [prezto](https://github.com/sorin-ionescu/prezto)
 - v2014, [yadr](https://github.com/skwp/dotfiles)
+-->
 
 <!--
 ## Inspiration
