@@ -60,11 +60,14 @@ _zimfw_build_init() {
     print -R "zimfw() { source ${ZIM_HOME}/zimfw.zsh \"\${@}\" }"
     if (( ${#_zfpaths} )) print -R 'fpath=('${_zfpaths:A}' ${fpath})'
     if (( ${#_zfunctions} )) print -R 'autoload -Uz '${_zfunctions}
-    print -Rn ${(F):-source ${^_zscripts:A}}
+    print -R ${(F)_zcmds}
   ) ${ztarget}
 }
 
 _zimfw_build_login_init() {
+  # Array with unique dirs. ${ZIM_HOME} or any subdirectory should only occur once.
+  local -Ur zscriptdirs=(${ZIM_HOME} ${${_zdirs##${ZIM_HOME}/*}:A})
+  local -r zscriptglob=("${^zscriptdirs[@]}/(^*test*/)#*.zsh(|-theme)(N-.)")
   local -r ztarget=${ZIM_HOME}/login_init.zsh
   _zimfw_mv =(
     print -Rn "() {
@@ -79,18 +82,16 @@ _zimfw_build_login_init() {
   fi
 
   # Compile Zsh startup files
-  for zfile in \${1} \${ZDOTDIR:-\${HOME}}/.z(shenv|profile|shrc|login|logout)(N-.); do
+  for zfile in \${ZDOTDIR:-\${HOME}}/.z(shenv|profile|shrc|login|logout)(N-.); do
     zrecompile -p \${1} \${zfile} || return 1
   done
 
   # Compile Zim scripts
-  for zfile in \${ZIM_HOME}/(^*test*/)#*.zsh(|-theme)(N-.); do
+  for zfile in ${zscriptglob}; do
     zrecompile -p \${1} \${zfile} || return 1
   done
 
-  if [[ \${1} != -q ]]; then
-    print -P 'Done with compile.'
-  fi
+  if [[ \${1} != -q ]] print -P 'Done with compile.'
 } \"\${@}\"
 "
   ) ${ztarget}
@@ -106,8 +107,8 @@ zmodule() {
 Add %Bzmodule%b calls to your %B${ZDOTDIR:-${HOME}}/.zimrc%b file to define the modules to be initialized.
 The modules are initialized in the same order they are defined.
 
-  <url>                          Required repository URL or path. The following formats are
-                                 equivalent: %Bname%b, %Bzimfw/name%b, %Bhttps://github.com/zimfw/name.git%b.
+  <url>                          Module absolute path or repository URL. The following URL formats
+                                 are equivalent: %Bname%b, %Bzimfw/name%b, %Bhttps://github.com/zimfw/name.git%b.
   %B-n%b|%B--name%b <module_name>        Set a custom module name. Default: the last component in the <url>.
 
 Repository options:
@@ -125,6 +126,9 @@ Initialization options:
   %B-s%b|%B--source%b <file_path>        Source specified file. The file path is relative to the module root
                                  directory. Default: the file with largest size matching
                                  %B{init.zsh,module_name.{zsh,plugin.zsh,zsh-theme,sh}}%b, if any exist.
+  %B-c%b|%B--cmd%b <command>             Execute specified command. Occurrences of the %B{}%b placeholder in the
+                                 command are substituted by the module root directory path.
+                                 %B-s 'script.zsh'%b and %B-c 'source {}/script.zsh'%b are equivalent.
   %B-d%b|%B--disabled%b                  Don't initialize or uninstall the module.
 "
   if [[ ${${funcfiletrace[1]%:*}:t} != .zimrc ]]; then
@@ -140,8 +144,8 @@ Initialization options:
   local zmodule=${1:t} zurl=${1}
   local ztype=branch zrev=master
   local -i zdisabled=0 zfrozen=0
-  local -a zfpaths zfunctions zscripts
-  local zarg
+  local -a zfpaths zfunctions zcmds
+  local zarg zdir
   if [[ ${zurl} =~ ^[^:/]+: ]]; then
     zmodule=${zmodule%.git}
   elif [[ ${zurl} != /* ]]; then
@@ -162,7 +166,11 @@ Initialization options:
     zmodule=${1}
     shift
   fi
-  local -r zdir=${ZIM_HOME}/modules/${zmodule}
+  if [[ ${zurl} == /* ]]; then
+    zdir=${zurl}
+  else
+    zdir=${ZIM_HOME}/modules/${zmodule}
+  fi
   while (( # > 0 )); do
     case ${1} in
       -b|--branch|-t|--tag|-f|--fpath|-a|--autoload|-s|--source)
@@ -199,7 +207,11 @@ Initialization options:
         shift
         zarg=${1}
         if [[ ${zarg} != /* ]] zarg=${zdir}/${zarg}
-        zscripts+=(${zarg})
+        zcmds+=("source ${zarg:A}")
+        ;;
+      -c|--cmd)
+        shift
+        zcmds+=(${1//{}/${zdir:A}})
         ;;
       -d|--disabled) zdisabled=1 ;;
       *)
@@ -229,16 +241,18 @@ Initialization options:
         # prompt_*_setup functions are autoloaded by promptinit
         zfunctions+=(${^zfpaths}/^(*~|*.zwc(|.old)|_*|prompt_*_setup)(N-.:t))
       fi
-      if (( ! ${#zscripts} )); then
-        zscripts+=(${zdir}/(init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh))(NOL[1]))
+      if (( ! ${#zcmds} )); then
+        local -r zscript=(${zdir}/(init.zsh|${zmodule:t}.(zsh|plugin.zsh|zsh-theme|sh))(NOL[1]))
+        zcmds+=("source ${^zscript[@]:A}")
       fi
-      if (( ! ${#zfpaths} && ! ${#zfunctions} && ! ${#zscripts} )); then
+      if (( ! ${#zfpaths} && ! ${#zfunctions} && ! ${#zcmds} )); then
         print -u2 -PR "%F{yellow}! ${funcfiletrace[1]}:%B${zmodule}:%b Nothing found to be initialized. Customize the module name or initialization with %Bzmodule%b options.%f"$'\n\n'${zusage}
       fi
+      _zmodules+=(${zmodule})
+      _zdirs+=(${zdir})
       _zfpaths+=(${zfpaths})
       _zfunctions+=(${zfunctions})
-      _zscripts+=(${zscripts})
-      _zmodules+=(${zmodule})
+      _zcmds+=(${zcmds})
     fi
   fi
 }
@@ -277,9 +291,11 @@ _zimfw_version_check() {
 }
 
 _zimfw_clean_compiled() {
+  # Array with unique dirs. ${ZIM_HOME} or any subdirectory should only occur once.
+  local -Ur zscriptdirs=(${ZIM_HOME} ${${_zdirs##${ZIM_HOME}/*}:A})
   local zopt
   if (( _zprintlevel > 0 )) zopt='-v'
-  command rm -f ${zopt} ${ZIM_HOME}/**/*.zwc(|.old) || return 1
+  command rm -f ${zopt} ${^zscriptdirs}/**/*.zwc(|.old)(N) || return 1
   command rm -f ${zopt} ${ZDOTDIR:-${HOME}}/.z(shenv|profile|shrc|login|logout).zwc(|.old)(N) || return 1
   _zimfw_print -P 'Done with clean-compiled. Run %Bzimfw compile%b to re-compile.'
 }
@@ -299,7 +315,7 @@ _zimfw_compile() {
 }
 
 _zimfw_info() {
-  print -R 'zimfw version: '${_zversion}' (previous commit is c0d7862)'
+  print -R 'zimfw version: '${_zversion}' (previous commit is ccace0c)'
   print -R 'ZIM_HOME:      '${ZIM_HOME}
   print -R 'Zsh version:   '${ZSH_VERSION}
   print -R 'System info:   '$(command uname -a)
@@ -322,28 +338,28 @@ _zimfw_upgrade() {
   local -r ztarget=${ZIM_HOME}/zimfw.zsh
   local -r zurl=https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh.gz
   {
-    setopt LOCAL_OPTIONS PIPE_FAIL
     if (( ${+commands[curl]} )); then
-      command curl -fsSL ${zurl} | command gunzip > ${ztarget}.new || return 1
+      command curl -fsSL -o ${ztarget}.new.gz ${zurl} || return 1
     else
       local zopt
       if (( _zprintlevel <= 1 )) zopt='-q'
-      if ! command wget -nv ${zopt} -O - ${zurl} | command gunzip > ${ztarget}.new; then
+      if ! command wget -nv ${zopt} -O ${ztarget}.new.gz ${zurl}; then
         if (( _zprintlevel <= 1 )) print -u2 -PR "%F{red}x Error downloading %B${zurl}%b. Use %B-v%b option to see details.%f"
         return 1
       fi
     fi
+    command gunzip -f ${ztarget}.new.gz || return 1
     # .latest_version can be outdated and will yield a false warning if zimfw is
     # upgraded before .latest_version is refreshed. Bad thing about having a cache.
     _zimfw_mv ${ztarget}{.new,} && command rm -f ${ZIM_HOME}/.latest_version && \
         _zimfw_print -P 'Done with upgrade.'
   } always {
-    command rm -f ${ztarget}.new
+    command rm -f ${ztarget}.new{,.gz}
   }
 }
 
 zimfw() {
-  local -r _zversion='1.2.1'
+  local -r _zversion='1.3.2'
   local -r zusage="Usage: %B${0}%b <action> [%B-q%b|%B-v%b]
 
 Actions:
@@ -365,7 +381,7 @@ Options:
   %B-v%b              Verbose
 "
   local ztool
-  local -a _zdisableds _zmodules _zfpaths _zfunctions _zscripts _zmodules_zargs
+  local -a _zdisableds _zmodules _zdirs _zfpaths _zfunctions _zcmds _zmodules_zargs
   local -i _zprintlevel=1
   if (( # > 2 )); then
      print -u2 -PR "%F{red}${0}: Too many options%f"$'\n\n'${zusage}
@@ -479,10 +495,10 @@ fi
       _zimfw_compile
       ;;
     init) _zimfw_source_zimrc && _zimfw_build ;;
-    clean) _zimfw_clean_compiled && _zimfw_clean_dumpfile ;;
-    clean-compiled) _zimfw_clean_compiled ;;
+    clean) _zimfw_source_zimrc && _zimfw_clean_compiled && _zimfw_clean_dumpfile ;;
+    clean-compiled) _zimfw_source_zimrc && _zimfw_clean_compiled ;;
     clean-dumpfile) _zimfw_clean_dumpfile ;;
-    compile) _zimfw_build_login_init && _zimfw_compile ;;
+    compile) _zimfw_source_zimrc && _zimfw_build_login_init && _zimfw_compile ;;
     help) print -PR ${zusage} ;;
     info) _zimfw_info ;;
     install|update)
