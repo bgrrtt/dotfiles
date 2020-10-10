@@ -84,10 +84,21 @@ end)
 
 hs.hotkey.bind(hyper, "M", maximize)
 hs.hotkey.bind(hyper, "Return", maximize)
+
 -----------------------------------------------
 -- Hotkeys
 -----------------------------------------------
 
+-- Utility: Time + Battery
+hs.hotkey.bind(hyper, 'T', function()
+  local seconds = 1.5
+  local message = os.date("%I:%M%p") .. "\n" .. os.date("%a %b %d") .. "\nBattery: " ..
+     hs.battery.percentage() .. "%"
+  hs.alert.show(message, seconds)
+end)
+
+
+-- Alacritty
 hs.hotkey.bind({"alt"}, "space", function()
   local alacritty = hs.application.find('alacritty')
   if alacritty:isFrontmost() then
