@@ -24,7 +24,7 @@ background_opacity: 1.0
 # Visual Bell #
 # =========================================================================== #
 
-visual_bell:
+bell:
     animation: EaseOutExpo
     duration: 1
     color: '#ffffff'
