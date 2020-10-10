@@ -1,71 +1,50 @@
 _HOLD*
 NOTES.md
 
-alfred/.config/alfred/Alfred.alfredpreferences/preferences/local
-alfred/.config/alfred/Alfred.alfredpreferences/remote
-alfred/.config/alfred/Alfred.alfredpreferences/workflows
+# ALFRED
+alfred/.config/alfred/Alfred.alfredpreferences/remote/**
 
+# GITHUB-CLI
 gh/.config/gh/hosts.yml
 
+# GIT
 git/.config/git/user
 
-karabiner/.config/karabiner/automatic_backups
-
-karabiner/.local/share/karabiner/*
+# KARABINER
+karabiner/.local/share/karabiner/**
 !karabiner/.local/share/karabiner/.gitkeep
 
-nvim/.config/coc/*
-nvim/.config/coc/memos.json
-
-nvim/.config/coc/extensions/*
+# NVIM
+nvim/.config/coc/**
 !nvim/.config/coc/extensions/db.json
 !nvim/.config/coc/extensions/package.json
 
-nvim/.config/nvim/.netrwhist
+nvim/.config/nvim/**
+!nvim/.config/nvim/**/.gitkeep
+!nvim/.config/nvim/after/**
+!nvim/.config/nvim/ftplugin/**/*.vim
+!nvim/.config/nvim/spell/**/*.add
 
-nvim/.config/nvim/autoload/*
-!nvim/.config/nvim/autoload/.gitkeep
+nvim/.local/share/nvim/**
+!nvim/.local/share/nvim/**/.gitkeep
 
-nvim/.config/nvim/spell/en.utf-8.add.spl
-
-nvim/.local/share/nvim/backup/**
-!nvim/.local/share/nvim/backup/.gitkeep
-
-nvim/.local/share/nvim/sessions/**
-!nvim/.local/share/nvim/sessions/.gitkeep
-
-nvim/.local/share/nvim/plugged/**
-!nvim/.local/share/nvim/plugged/.gitkeep
-
-nvim/.local/share/nvim/undo/**
-!nvim/.local/share/nvim/undo/.gitkeep
-
+# RCLONE
 rclone/.config/rclone/rclone.conf
 
+# SSHRC
 sshrc/.sshrc.d/.config/rclone/rclone.conf
 
-vscode/.vscode/extensions/*
+# VSCODE
+vscode/.vscode/extensions/**
 !vscode/.vscode/extensions/.gitkeep
 
-vscode/.vscode/workspaces/*
+vscode/.vscode/workspaces/**
 !vscode/.vscode/workspaces/.gitkeep
 
-weechat/.weechat/*.log
-weechat/.weechat/logs/*
-!weechat/.weechat/logs/.gitkeep
-
-zsh/.zsh.d/.zsecrets
-
-zsh/.local/share/zsh/zshfw/*
-!zsh/.local/share/zsh/zshfw/.gitkeep
-
+# ZSH
 zsh/.zsh.d/**
-!zsh/.zsh.d/.zim
-
-zsh/.zsh.d/.zim/*
 !zsh/.zsh.d/.zim/zimfw.zsh
-
+!zsh/.zsh.d/.zimrc
 !zsh/.zsh.d/.zlogin
 !zsh/.zsh.d/.zprofile
 !zsh/.zsh.d/.zshrc
-!zsh/.zsh.d/.zimrc
