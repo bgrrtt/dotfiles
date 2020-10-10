@@ -2,122 +2,71 @@
 #
 # User configuration sourced by interactive shells
 #
-
-# http://www.faqs.org/faqs/unix-faq/shell/zsh/
-# https://adamspiers.org/computing/zsh/
-# http://zsh.sourceforge.net/Guide/
-# http://zsh.sourceforge.net/
-# https://curlie.org/Computers/Software/Operating_Systems/Unix/Shell/zsh/
-# http://www.zzapper.co.uk/zshtweets.html
-# https://grml.org/zsh/zsh-lovers.html
-# http://zshwiki.org/
-# https://www.zsh.org/
-
-# Fututre development:
-# for general knowledge: https://www.viget.com/articles/zsh-config-productivity-plugins-for-mac-oss-default-shell/
-# for aliases at the end: https://dev.to/thbe/enhance-your-macos-terminal-p10k-1g3m
-
-# https://misc.flogisoft.com/bash/tip_colors_and_formatting
-# echo -e "\e[1mbold\e[0m"
-# echo -e "\e[2mdim\e[0m"
-# echo -e "\e[3mitalic\e[0m"
-# echo -e "\e[1;3mbold italic\e[0m"
-# echo -e "\e[4munderline\e[0m"
-# echo -e "\e[5mblink\e[0m"
-# echo -e "\e[7minverted\e[0m"
-# echo -e "\e[9mstrikethrough\e[0m"
-# echo -e "\e[31mHello World\e[0m"
-# echo -e "\033[31mHello\e[0m World\e[0m"
-
-# ---------------------------
-# Solarized Dark
-# ---------------------------
-# Base03	#002b36		brblack
-# Base02	#073642		black
-# Base01	#586e75		brgreen
-# Base00	#657b83		bryellow
-# Base0   #839496		brblue
-# Base1   #93a1a1		brcyan
-# Base2   #eee8d5		white
-# Base3   #fdf6e3		brwhite
-# Yellow	#b58900		yellow
-# Orange	#cb4b16		brred
-# Red		  #dc322f		red
-# Magenta	#d33682		magenta
-# Violet	#6c71c4		brmagenta
-# Blue	  #268bd2		blue
-# Cyan	  #2aa198		cyan
-# Green	  #859900		green
-# ---------------------------
+###############################################################################
 
 ###############################################################################
 # Secrets
-source $HOME/.zsh.d/.zsecrets
-
-###############################################################################
-# Debug
-# set -x
-
-###############################################################################
-# Color
-export TERM=xterm-256color
+source $ZDOTDIR/.zsecrets
 
 ###############################################################################
 # Path
-# https://superuser.com/questions/1447936/what-is-the-difference-between-zshs-path-and-path
-# Automatically remove duplicates from these arrays
 typeset -U path
-# array-tied-export-unique-special
 export path=(
-  ./bin
-  ./node_modules/.bin
-  ./vendor/bin
-  $HOME/.local/bin
-  $HOME/.composer/vendor/bin
-  /usr/local/sbin
-  $path
+    ./bin
+    ./node_modules/.bin
+    ./vendor/bin
+    $HOME/.local/bin
+    $path
 )
-# scalar-tied-export-special
 export PATH
-
-# ? to include `/usr/local/opt/coreutils/libexec/gnubin` in $PATH or not to?
-# ? --group-directories-first is nice, but now sort of disruptive to me
 
 ###############################################################################
 # Fpath
 typeset -U fpath
 export fpath=(
-  $fpath
+    $ZDOTDIR/functions
+    $fpath
 )
 export FPATH
 
+###############################################################################
+# Go
+export GOPATH="${HOME}/Software/go"
+
+###############################################################################
+# Editor
+export EDITOR=nvim
+
+###############################################################################
+# Git
+export GIT_EDITOR=nvim
+export GITHUB_USER="$(git config --global --includes github.user)"
+
 ##############################################################################
+# You Should Use
+export YSU_HARDCORE=0
+export YSU_IGNORED_ALIASES=("g" "brew install" "cask install" ":q")
+export YSU_IGNORED_GLOBAL_ALIASES=("...")
+
+###############################################################################
 # Zsh
-
-# Turn off all beeps
-unsetopt BEEP
-
-# complete_aliases breaks `z`, use full `fasd` instead
-# setopt complete_aliases
-
-# Remove older command from the history if a duplicate is to be added.
-setopt HIST_IGNORE_ALL_DUPS
 
 # Set editor default keymap to emacs (`-e`) or vi (`-v`)
 bindkey -v
 
-### Is there a better way?
-# Enable colors
-# autoload -Uz colors
+# Fix backspace when using vi mode
+# https://superuser.com/questions/476532/how-can-i-make-zshs-vi-mode-behave-more-like-bashs-vi-mode
+bindkey "^?" backward-delete-char
+
+# Enable blah
+autoload -U blah
 
 # Enable zmv
 autoload -Uz zmv
 
 # Enable ztodo
 autoload -Uz ztodo
-
-# Enable sticky-note
-# autoload -Uz sticky-note
+chpwd() { ztodo }
 
 # Prompt for spelling correction of commands.
 setopt CORRECT
@@ -131,78 +80,40 @@ WORDCHARS=${WORDCHARS//[\/]}
 # ignore hosts completion
 zstyle ':completion:*' hosts off
 
+# Define History location
+export HISTFILE=$ZDOTDIR/.zhistory
 
-##############################################################################
-# Zsh IMproved FrameWork
+# setopt EXTENDED_HISTORY       # Write the history file in the ':start:elapsed;command' format.
+# setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits.
+# setopt SHARE_HISTORY          # Share history between all sessions.
+# setopt HIST_EXPIRE_DUPS_FIRST # Expire a duplicate event first when trimming history.
+# setopt HIST_IGNORE_DUPS       # Do not record an event that was just recorded again.
+# setopt HIST_IGNORE_ALL_DUPS   # Delete an old recorded event if a new event is a duplicate.
+# setopt HIST_FIND_NO_DUPS      # Do not display a previously found event.
+# setopt HIST_IGNORE_SPACE      # Do not record an event starting with a space.
+# setopt HIST_SAVE_NO_DUPS      # Do not write a duplicate event to the history file.
+# setopt HIST_VERIFY            # Do not execute immediately upon history expansion.
+# setopt APPEND_HISTORY         # append to history file
+# setopt HIST_NO_STORE          # Don't store history commands
 
-# --------------
-# zim completion
-# --------------
-
-# Set a custom path for the completion dump file.
-# If none is provided, the default ${ZDOTDIR:-${HOME}}/.zcompdump is used.
-# zstyle ':zim:completion' dumpfile "${ZDOTDIR:-${HOME}}/.zcompdump-${ZSH_VERSION}"
-
-# -------
-# zim git
-# -------
+# -----------------------------------------------------------------------------
+# Zimfw
 
 # Set a custom prefix for the generated aliases. The default prefix is 'G'.
 zstyle ':zim:git' aliases-prefix 'g'
 
-# ---------
-# zim input
-# ---------
-
 # Append `../` to your input for each `.` you type after an initial `..`
-zstyle ':zim:input' double-dot-expand no
-
-# -------------
-# zim termtitle
-# -------------
-
-# Set a custom terminal title format using prompt expansion escape sequences.
-# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
-# If none is provided, the default '%n@%m: %~' is used.
-# zstyle ':zim:termtitle' format '%n@%m: %~'
-
-# -------
-# zim ssh
-# -------
+zstyle ':zim:input' double-dot-expand yes
 
 # To define the identities (from ~/.ssh) to be loaded and cached on login, use:
 # zstyle ':zim:ssh' ids 'id_rsa1' 'id_rsa2' 'id_rsa3'
 zstyle ':zim:ssh' ids 'id_rsa'
 
-# --------------------------------------
-# zsh-users/zsh-autosuggestions with zim
-# --------------------------------------
-
-# Customize the style that the suggestions are shown with.
-# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=010'
-
-# ------------------------------------------
-# zsh-users/zsh-syntax-highlighting with zim
-# ------------------------------------------
-
-# # Set what highlighters will be used.
-# # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
-# ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-
-# # Customize the main highlighter styles.
-# # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
-# typeset -A ZSH_HIGHLIGHT_STYLES
-# ZSH_HIGHLIGHT_STYLES[comment]='fg=010'
-
-##############################################################################
-# Initialize Zim Framework
-
+# Initialize modules
 if [[ ${ZIM_HOME}/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
   # Update static initialization script if it's outdated, before sourcing it
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
-
 source ${ZIM_HOME}/init.zsh
 
 ##############################################################################
@@ -213,6 +124,10 @@ source ${ZIM_HOME}/init.zsh
 # Aliases
 # configured with bgrrtt/zimfw-aliases in the Zim Framework initialization
 
-##############################################################################
-# vim: set ft=zsh: ###########################################################
-##############################################################################
+###############################################################################
+###############################################################################
+
+# Remove zsh completion shipped with Homebrew git.
+# https://github.com/Homebrew/homebrew-core/issues/33275
+[[ -f /usr/local/share/zsh/site-functions/_git ]] && \
+  rm  -f /usr/local/share/zsh/site-functions/_git
