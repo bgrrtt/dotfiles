@@ -8,7 +8,13 @@
 
 hyper = {"ctrl", "alt", "cmd", "shift"}
 
--- hyper shift?
+-----------------------------------------------
+-- Set: Alert Styles
+-----------------------------------------------
+
+hs.alert.defaultStyle.strokeColor =  {white = 1, alpha = 0}
+hs.alert.defaultStyle.fillColor =  {white = 0.05, alpha = 0.75}
+hs.alert.defaultStyle.radius =  10
 
 -----------------------------------------------
 -- Scripts
