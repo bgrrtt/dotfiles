@@ -13,7 +13,7 @@
 [status]
 	submoduleSummary = true
 [alias]
-	tree = "log --color --graph --decorate --pretty=oneline --abbrev-commit"
+	log-tree = "log --color --graph --decorate --pretty=oneline --abbrev-commit"
 	# ...additional aliases are configured via zimfw/git and bgrrtt/zimfw-aliases
 [color]
 	ui = always
