@@ -22,7 +22,7 @@ nvim/.config/coc/**
 nvim/.config/nvim/**
 !nvim/.config/nvim/**/.gitkeep
 !nvim/.config/nvim/after/**
-!nvim/.config/nvim/ftplugin/**/*.vim
+!nvim/.config/nvim/ftplugin/**
 !nvim/.config/nvim/spell/**/*.add
 
 nvim/.local/share/nvim/**
@@ -35,6 +35,8 @@ rclone/.config/rclone/rclone.conf
 sshrc/.sshrc.d/.config/rclone/rclone.conf
 
 # VSCODE
+vscode/.vscode/dictionaries/private.txt
+
 vscode/.vscode/extensions/**
 !vscode/.vscode/extensions/.gitkeep
 
