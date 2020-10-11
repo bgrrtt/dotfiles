@@ -23,19 +23,25 @@ set background=dark
 
 " System
 set hidden
-set lazyredraw
+set nolazyredraw
+set confirm
 
 " Errors
-set errorbells
-set visualbell
+set noerrorbells
+set novisualbell
 
 " UI
 set ruler
 set number
+set signcolumn=yes
+
 set showcmd
 set noshowmode
+
+set showtabline=2
 set cmdheight=2
 set laststatus=2
+
 set fillchars+=vert:│
 
 " Editor
@@ -60,8 +66,11 @@ set display=lastline,msgsep " nvim default
 
 " Timeout
 set timeoutlen=200
-set ttimeoutlen=50
+set ttimeoutlen=20
 set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
 
 " Wildmenu
 set wildmenu
@@ -121,11 +130,6 @@ nnoremap J 5j
 nnoremap K 5k
 
 " Window Movement
-" nnoremap <C-J> <C-W><C-J>
-" nnoremap <C-K> <C-W><C-K>
-" nnoremap <C-H> <C-W><C-H>
-" nnoremap <C-L> <C-W><C-L>
-
 tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
 tnoremap <C-k> <C-\><C-N><C-w>k
@@ -194,47 +198,38 @@ call plug#begin('~/.local/share/nvim/plugged')
   " Colors
   Plug 'lifepillar/vim-solarized8'
 
-  " Completion Engine
+  " Comments
+  Plug 'preservim/nerdcommenter'
+
+  " Completions
   Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
   " Explorer
   Plug 'preservim/nerdtree'
-  Plug 'tsony-tsonev/nerdtree-git-plugin' " fork of xuyuanp/nerdtree-git-plugin with git status colors
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  " Plug 'tsony-tsonev/nerdtree-git-plugin' " fork of xuyuanp/nerdtree-git-plugin with git status colors
+  " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
   " Git
-  Plug 'tpope/vim-fugitive'
+  " Plug 'tpope/vim-fugitive'
 
   " Search
-  " === Plug 'brooth/far.vim' ", not ready
-  Plug 'wincent/ferret'
-  Plug 'wincent/loupe'
+  " Plug 'wincent/ferret'
+  " Plug 'wincent/loupe'
 
-  " Syntax
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'sheerun/vim-polyglot'
-
-  " Status Line
+  " Status
   Plug 'itchyny/lightline.vim'
   Plug 'mengelbrecht/lightline-bufferline'
 
-  " UI
-  " === Plug 'majutsushi/tagbar' ", not ready
-  " === Plug 'mbbill/undotree'   ", not ready
+  " Syntax
+  Plug 'sheerun/vim-polyglot'
 
   " UX
   " === Plug 'camspiers/animate.vim' ", not ready
   " === Plug 'camspiers/lens.vim'    ", not ready
   Plug 'ntpeters/vim-better-whitespace'
-  Plug 'preservim/nerdcommenter'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
   Plug 'wincent/terminus'
-
-  " Applications
-  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
-  Plug 'mhinz/vim-startify'
-  Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -255,155 +250,149 @@ command! PA PlugClean | PlugInstall | PlugUpgrade
 
 " Coc ------------------------------------------------------------------------- {{{
 
-" https://www.npmjs.com/package/coc-github
-" https://www.npmjs.com/package/coc-webpack
-" https://www.npmjs.com/package/coc-docker
-" https://www.npmjs.com/package/coc-sql
-" https://www.npmjs.com/package/coc-post
-" https://www.npmjs.com/package/coc-tailwindcss
-" https://github.com/shtanton/coc-fs-lists
-
-" Check back space (for Coc)
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-" Use <tab> for trigger completion and navigate to next complete item
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" Close preview window when completion is done.
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" Lightline support
-function! CocLightlineCurrentFunction()
-    return get(b:, 'coc_current_function', '')
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Highlight selected word in document
-nmap <expr> <silent> <c-d> <SID>select_current_word()
-function! s:select_current_word()
-  if !get(g:, 'coc_cursors_activated', 0)
-    return "\<Plug>(coc-cursors-word)"
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
   endif
-  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-endfunc
+endfunction
 
-" }}}
-
-" Coc-yank -------------------------------------------------------------------- {{{
-
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
-
-" }}}
-
-" Coc-highlight -------------------------------------------------------------------- {{{
-
-" To enable highlight current symbol on CursorHold, add:
+" Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" }}}
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
 
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
-" Starify --------------------------------------------------------------------- {{{
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 
-let g:startify_custom_header = [
-\ '     ______                           __   __     _                  _          ____ _',
-\ '    / ____/_   __ ___   _____ __  __ / /_ / /_   (_)____   ____ _   (_)_____   / __/(_)____   ___',
-\ '   / __/  | | / // _ \ / ___// / / // __// __ \ / // __ \ / __ `/  / // ___/  / /_ / // __ \ / _ \',
-\ '  / /___  | |/ //  __// /   / /_/ // /_ / / / // // / / // /_/ /  / /(__  )  / __// // / / //  __/_',
-\ ' /_____/  |___/ \___//_/    \__, / \__//_/ /_//_//_/ /_/ \__, /  /_//____/  /_/  /_//_/ /_/ \___/(_)',
-\ '                           /____/                       /____/',
-\ '',
-\ ]
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-let g:startify_custom_header = [
-\ '',
-\ ' ██████╗  ██████╗ ███╗   ██╗████████╗    ██████╗  █████╗ ███╗   ██╗██╗ ██████╗    ██╗',
-\ ' ██╔══██╗██╔═══██╗████╗  ██║╚══██╔══╝    ██╔══██╗██╔══██╗████╗  ██║██║██╔════╝    ██║',
-\ ' ██║  ██║██║   ██║██╔██╗ ██║   ██║       ██████╔╝███████║██╔██╗ ██║██║██║         ██║',
-\ ' ██║  ██║██║   ██║██║╚██╗██║   ██║       ██╔═══╝ ██╔══██║██║╚██╗██║██║██║         ╚═╝',
-\ ' ██████╔╝╚██████╔╝██║ ╚████║   ██║       ██║     ██║  ██║██║ ╚████║██║╚██████╗    ██╗',
-\ ' ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝   ╚═╝       ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝ ╚═════╝    ╚═╝',
-\ '',
-\ ]
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
 
-" let g:startify_custom_header = ['']
-let g:startify_custom_footer = ['']
-let g:startify_files_number = 5
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
-let g:startify_lists = [
-      \ { 'type': 'sessions',  'header': [' Sessions']         },
-      \ { 'type': 'bookmarks', 'header': [' Bookmarks']        },
-      \ { 'type': 'files',     'header': [' MRU']              },
-      \ { 'type': 'commands',  'header': [' Commands']         },
-      \ ]
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
 
-let g:startify_session_dir = '~/.local/share/nvim/sessions' " Does this work?
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
 
-" }}}
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Vimwiki --------------------------------------------------------------------- {{{
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-let g:vimwiki_list = [{'path': '~/Wiki/'}]
-
-" }}}
-
-
-
-" NERDTree -------------------------------------------------------------------- {{{
-
-noremap <C-o> :NERDTreeToggle<CR>
-
-let NERDTreeShowHidden=1
-let NERDTreeQuitOnOpen=1
-let NERDTreeMinimalUI=1
-let NERDTreeDirArrows=1
-let NERDTreeRespectWildIgnore=1
-let NERDTreeAutoDeleteBuffer = 1
-
-" let NERDTreeIgnore=['\.DS_Store$'] " ignoring with wildignore instead
-
-" nerdtree-git-plugin
-
-let g:NERDTreeShowIgnoredStatus = 1
-
-" tsony-tsonev/nerdtree-git-plugin only
-
-let g:NERDTreeGitStatusNodeColorization = 1
-let g:NERDTreeGitStatusWithFlags = 1
-
-let g:NERDTreeColorMapCustom = {
-    \ "Modified"  : "#b58900",
-    \ "Staged"    : "#6c71c4",
-    \ "Untracked" : "#859900",
-    \ "Dirty"     : "#b58900",
-    \ "Clean"     : "#87939A",
-    \ "Ignored"   : "#808080"
-    \ }
-
-let g:NERDTreeGitStatusNodeColorization = 1
-let g:NERDTreeGitStatusWithFlags = 1
-
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " }}}
 
+" open new split panes to right and below
+set splitright
+set splitbelow
+" turn terminal to normal mode with escape
+tnoremap <Esc> <C-\><C-n>
+" start terminal in insert mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+" open terminal on ctrl+n
+function! OpenTerminal()
+  split term://bash
+  resize 10
+endfunction
+nnoremap <c-n> :call OpenTerminal()<CR>
 
 " NERDCommenter --------------------------------------------------------------- {{{
 
@@ -414,55 +403,19 @@ let g:NERDSpaceDelims = 1
 
 " Lightline --------------------------------------------------------------- {{{
 
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'cocstatus', 'coccurrentfunction', 'readonly', 'filename', 'modified', 'spell' ] ],
-      \   'right': [ ['lineinfo'], ['percent'], ['filetype' ] ]
-      \ },
-      \ 'tabline': {
-      \   'left': [ ['buffers'] ],
-      \   'right': [ ['close'] ]
-      \ },
-      \ 'component_expand': {
-      \   'buffers': 'lightline#bufferline#buffers'
-      \ },
-      \ 'component_type': {
-      \   'buffers': 'tabsel'
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'coccurrentfunction': 'CocLightlineCurrentFunction',
-      \   'gitbranch': 'fugitive#head'
-      \ }
-      \ }
+let g:lightline#bufferline#show_number  = 0
+let g:lightline#bufferline#shorten_path = 0
+let g:lightline#bufferline#clickable    = 1
 
-autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
-set showtabline=2
-set confirm
+let g:lightline                  = {'colorscheme': 'solarized'}
+let g:lightline.tabline          = {'left': [ ['buffers'] ], 'right': [ [] ]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+let g:lightline.component_raw    = {'buffers': 1}
 
-" }}}
-
-" DevIcons -------------------------------------------------------------------- {{{
-
-let g:webdevicons_enable = 1
-let g:webdevicons_conceal_nerdtree_brackets = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
-
-" }}}
-
-" Better Whitespace ----------------------------------------------------------- {{{
-
-let g:better_whitespace_enabled = 1
-let g:strip_whitespace_on_save = 1
-
-" }}}
-
-
-" Ferret and Loupe ------------------------------------------------------------ {{{
-
+" Uncomment when adding the buffers to the bottom statusbar
+" otherwise, the modified indicator will not be updated immediately
+" autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
 
 " }}}
 
