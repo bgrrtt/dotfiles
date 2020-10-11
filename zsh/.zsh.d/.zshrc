@@ -83,6 +83,10 @@ zstyle ':completion:*' hosts off
 # Define History location
 export HISTFILE=$ZDOTDIR/.zhistory
 
+# Shorten KEYTIMEOUT
+# https://www.johnhawthorn.com/2012/09/vi-escape-delays/
+KEYTIMEOUT=10
+
 # setopt EXTENDED_HISTORY       # Write the history file in the ':start:elapsed;command' format.
 # setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits.
 # setopt SHARE_HISTORY          # Share history between all sessions.
