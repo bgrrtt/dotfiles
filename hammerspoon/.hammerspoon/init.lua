@@ -20,8 +20,8 @@ hs.alert.defaultStyle.radius =  10
 -- Scripts
 -----------------------------------------------
 
-amphetamine = require "amphetamine"
-wifiMenu = require "wifi_menu"
+-- amphetamine = require "amphetamine"
+-- wifiMenu = require "wifi_menu"
 doubleQuit = require "double_cmdq_to_quit"
 
 -----------------------------------------------
@@ -97,6 +97,26 @@ hs.hotkey.bind(hyper, 'T', function()
   hs.alert.show(message, seconds)
 end)
 
+
+-- VS Code
+hs.hotkey.bind({"ctrl"}, "space", function()
+  local vscode = hs.application.find('code')
+  if vscode:isFrontmost() then
+    vscode:hide()
+  else
+    hs.application.launchOrFocus("/Applications/Visual Studio Code.app")
+  end
+end)
+
+-- Chrome
+hs.hotkey.bind({"ctrl", "alt"}, "space", function()
+  local chrome = hs.application.find('chrome')
+  if chrome:isFrontmost() then
+    chrome:hide()
+  else
+    hs.application.launchOrFocus("/Applications/Google Chrome.app")
+  end
+end)
 
 -- Alacritty
 hs.hotkey.bind({"alt"}, "space", function()
