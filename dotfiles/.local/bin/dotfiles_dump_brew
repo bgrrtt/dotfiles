@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+() {
+    brew bundle dump --file=~/.dotfiles/brew/.config/brew/Brewfile.$(date +"%Y_%m_%d_%S")
+}
