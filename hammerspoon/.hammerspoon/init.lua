@@ -23,7 +23,7 @@ hs.alert.defaultStyle.radius =  10
 
 -- amphetamine = require "amphetamine"
 -- wifiMenu = require "wifi_menu"
-doubleQuit = require "double_cmdq_to_quit"
+-- doubleQuit = require "double_cmdq_to_quit"
 
 -----------------------------------------------
 -- Window Management
