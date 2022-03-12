@@ -114,11 +114,17 @@ zstyle ':zim:input' double-dot-expand yes
 zstyle ':zim:ssh' ids 'id_rsa'
 
 # Initialize modules
-if [[ ${ZIM_HOME}/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-  # Update static initialization script if it's outdated, before sourcing it
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  # Download zimfw script if missing.
+  command mkdir -p ${ZIM_HOME}
+  command curl -fsSL -o ${ZIM_HOME}/zimfw.zsh https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+fi
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+  # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
 source ${ZIM_HOME}/init.zsh
+
 
 ##############################################################################
 # Keybindings
