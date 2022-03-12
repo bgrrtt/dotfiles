@@ -99,15 +99,15 @@ hs.hotkey.bind(hyper, 'T', function()
 end)
 
 
--- VS Code
-hs.hotkey.bind({"ctrl"}, "space", function()
-  local vscode = hs.application.find('code')
-  if vscode:isFrontmost() then
-    vscode:hide()
-  else
-    hs.application.launchOrFocus("/Applications/Visual Studio Code.app")
-  end
-end)
+-- -- VS Code
+-- hs.hotkey.bind({"ctrl"}, "space", function()
+--   local vscode = hs.application.find('code')
+--   if vscode:isFrontmost() then
+--     vscode:hide()
+--   else
+--     hs.application.launchOrFocus("/Applications/Visual Studio Code.app")
+--   end
+-- end)
 
 -- Chrome
 hs.hotkey.bind({"ctrl", "alt"}, "space", function()
