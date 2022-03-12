@@ -2,10 +2,6 @@
 # Example: `git config --global --includes --list`
 [user]
 	useConfigOnly = true
-[include]
-	path = ~/.config/git/user
-	path = ~/.config/git/gitflow
-	path = ~/.config/git/diffsofancy
 [core]
 	excludesfile = ~/.config/git/ignore
 	ignorecase = false
