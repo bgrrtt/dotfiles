@@ -11,13 +11,7 @@
 		<key>string</key>
 		<string>C</string>
 	</dict>
-	<key>limit</key>
-	<integer>1</integer>
 	<key>persistFor</key>
-	<integer>3</integer>
-	<key>snippetsAtTop</key>
-	<false/>
-	<key>snippetsWhenSearching</key>
-	<false/>
+	<integer>2</integer>
 </dict>
 </plist>
