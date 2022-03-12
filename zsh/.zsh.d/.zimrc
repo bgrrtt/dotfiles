@@ -62,17 +62,4 @@ zmodule zdharma/fast-syntax-highlighting          # Fish-like syntax highlightin
 zmodule zsh-users/zsh-history-substring-search    # Fish-like history search (up arrow) for Zsh.
 
 ###############################################################################
-# Keybindings
-
-zmodule bgrrtt/zimfw-keybindings -n bgrrtt-keybindings    #
-
-###############################################################################
-# Aliases
-# TODO fix bgrrtt/zimfw-sshrc so it can be with other modules without breaking
-# TODO rename bgrrtt/zimfw-aliases to bgrrtt/zimfw-extras
-
-zmodule bgrrtt/zimfw-aliases -n bgrrtt-aliases
-zmodule bgrrtt/zimfw-sshrc   -n sshrc             # Provides sshrc aliases
-
-###############################################################################
 ###############################################################################
