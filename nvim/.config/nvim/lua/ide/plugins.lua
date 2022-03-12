@@ -300,11 +300,20 @@ return require('packer').startup({
         -- Git
         --
         use {'tpope/vim-fugitive'}
+        -- use {
+        --     'tanvirtin/vgit.nvim',
+        --     requires = 'nvim-lua/plenary.nvim',
+        --     config = function() require('vgit').setup() end
+        -- }
         use {
-            'tanvirtin/vgit.nvim',
-            requires = 'nvim-lua/plenary.nvim',
-            config = function() require('vgit').setup() end
-        }
+            'lewis6991/gitsigns.nvim',
+            requires = {
+              'nvim-lua/plenary.nvim'
+            },
+            config = function()
+              require('gitsigns').setup()
+            end
+          }
 
         --
         -- Formatters
