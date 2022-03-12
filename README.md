@@ -70,7 +70,7 @@ There are many dotfiles; these are mine. \*macOS only.
 
 ### [GNU Stow](https://www.gnu.org/software/stow)
 
-Dotfiles 2020 LTS uses `stow`, a "symlink farmer", to mange itself. `stow` applies folder structures, symlinks, and files to a **target** directory (`$HOME`) from one or more "packages" in the (`$HOME/.dotfiles`) **dictionary** directory.
+Dotfiles LTS uses `stow`, a "symlink farmer", to mange itself. `stow` applies folder structures, symlinks, and files to a **target** directory (`$HOME`) from one or more "packages" in the (`$HOME/.dotfiles`) **dictionary** directory.
 
 ```zsh
 stow -d $HOME/.dotfiles -t $HOME -S <package>
@@ -166,9 +166,9 @@ The terminal emulator's shell interface. Critical. Highly configured through the
 <!--
 ## Legacy
 
-- v2019, [bare repo](https://github.com/bgrrtt/dotfiles-2019)
-- v2018, [shell scripts](https://github.com/bgrrtt/dotfiles-2018)
-- v2017, [macOS-provisioner](https://github.com/bgrrtt/macOS-provisioner)
+- v2019, [bare repo](https://github.com/bgrrtt/dotfiles-2019) (private)
+- v2018, [shell scripts](https://github.com/bgrrtt/dotfiles-2018) (private)
+- v2017, [macOS-provisioner](https://github.com/bgrrtt/macOS-provisioner) (private)
 - v2016, [zimfw](https://github.com/zimfw/zimfw)
 - v2015, [prezto](https://github.com/sorin-ionescu/prezto)
 - v2014, [yadr](https://github.com/skwp/dotfiles)
@@ -189,4 +189,4 @@ The terminal emulator's shell interface. Critical. Highly configured through the
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
-Copyright © 2020 Branden Garrett
+Copyright © 2022 Branden Garrett
