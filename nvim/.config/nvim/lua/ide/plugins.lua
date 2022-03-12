@@ -320,25 +320,25 @@ return require('packer').startup({
             end
         }
         use {'prettier/vim-prettier', run = 'yarn install'}
-        use {
-            'mhartington/formatter.nvim',
-            config = function()
-                require('formatter').setup({
-                    filetype = {
-                        lua = {
-                            -- luafmt
-                            function()
-                                return {
-                                    exe = 'luafmt',
-                                    args = {'--indent-count', 4, '--stdin'},
-                                    stdin = true
-                                }
-                            end
-                        }
-                    }
-                })
-            end
-        }
+        -- use {
+        --     'mhartington/formatter.nvim',
+        --     config = function()
+        --         require('formatter').setup({
+        --             filetype = {
+        --                 lua = {
+        --                     -- luafmt
+        --                     function()
+        --                         return {
+        --                             exe = 'luafmt',
+        --                             args = {'--indent-count', 4, '--stdin'},
+        --                             stdin = true
+        --                         }
+        --                     end
+        --                 }
+        --             }
+        --         })
+        --     end
+        -- }
 
         --
         -- Editor
