@@ -3,6 +3,12 @@
 # User configuration sourced by all invocations of the shell
 #
 ###############################################################################
+
+# See `man zsh`'s "STARTUP/SHUTDOWN FILES" and "FILES"
+
+###############################################################################
+# Env
+
 #
 # DO NOT INCLUDE PATH OR FAPTH
 # https://unix.stackexchange.com/questions/555473/path-setup-in-zsh-in-os-x
@@ -12,6 +18,9 @@
 
 ###############################################################################
 # Zsh
+
+# DO NOT LOAD GLOBAL_RCS FROM /etc
+setopt NO_GLOBAL_RCS
 
 # Define ZDOTDIR location
 ZDOTDIR=${HOME}/.zsh.d
