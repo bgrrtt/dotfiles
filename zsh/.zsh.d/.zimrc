@@ -14,16 +14,19 @@ zmodule input          # Applies correct bindkeys for input events.
 zmodule termtitle      # Sets a custom terminal title.
 zmodule utility        # Utility aliases and functions. Adds colour to ls, grep and less.
 
-zmodule git            # Provides handy git aliases and functions
-zmodule ssh            # Provides a convenient way to load ssh-agent.
+zmodule archive	       # Provides archive and unarchive functions for easy archive manipulation.
+zmodule exa	           # Adds aliases and better defaults for exa.
 zmodule fasd           # Offers quick access to files and directories for POSIX shells
-zmodule homebrew       # Defines Homebrew aliases
-zmodule ruby           # Provides ruby and bundler aliases
-
 zmodule bgrrtt/zimfw-node       -n node          # Provides node version management integrations
 zmodule bgrrtt/zimfw-github-cli -n github-cli    # Provides github-cli aliases
 zmodule bgrrtt/zimfw-git-flow   -n git-flow      # Provides git-flow aliases
 zmodule bgrrtt/zimfw-docker     -n docker        # Provides docker aliases
+zmodule fzf	           # Configures fzf for faster fetching of files and directories names.
+zmodule git            # Provides handy git aliases and functions.
+zmodule pvenv	       # Manages all python venvs in one place.
+zmodule ruby	       # Provides ruby, bundler, rbenv and rvm aliases and initialization.
+zmodule ssh	           # Provides a convenient way to load ssh-agent.
+zmodule homebrew       # Adds aliases for Homebrew.
 
 zmodule hlissner/zsh-autopair              -n autopair          #
 zmodule michaelaquilina/zsh-you-should-use -n you-should-use    #
