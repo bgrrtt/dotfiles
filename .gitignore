@@ -3,6 +3,9 @@ NOTES.md
 
 # ALFRED
 alfred/.config/alfred/Alfred.alfredpreferences/remote/**
+alfred/.config/alfred/Alfred.alfredpreferences/preferences/local/**
+!alfred/.config/alfred/Alfred.alfredpreferences/preferences/local/**/example
+alfred/.config/alfred/Alfred.alfredpreferences/themes/theme.custom.*
 
 # GITHUB-CLI
 gh/.config/gh/hosts.yml
