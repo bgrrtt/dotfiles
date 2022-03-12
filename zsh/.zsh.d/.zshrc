@@ -150,6 +150,35 @@ bindkey -M vicmd 'j' history-substring-search-down
 # Aliases
 # configured with bgrrtt/zimfw-aliases in the Zim Framework initialization
 
+# dotfiles
+alias dotvim='vim ~/.dotfiles'
+alias dotcode='code ~/.dotfiles'
+
+# git
+alias gcm="git commit -m"
+alias gdiff="git diff"
+
+# exit
+alias :q="exit"
+alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+# scp
+alias scp="scp -F ~/.ssh/config"
+
+function pomo() {
+    arg1=$1
+    shift
+    args="$*"
+
+    min=${arg1:?Example: pomo 15 Take a break}
+    sec=$((min * 60))
+    msg="${args:?Example: pomo 15 Take a break}"
+
+    while true; do
+        date '+%H:%M' && sleep "${sec:?}" && notify-send -u critical -t 0 -a pomo "${msg:?}"
+    done
+}
+
 ###############################################################################
 ###############################################################################
 
@@ -157,3 +186,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 # https://github.com/Homebrew/homebrew-core/issues/33275
 [[ -f /usr/local/share/zsh/site-functions/_git ]] && \
   rm  -f /usr/local/share/zsh/site-functions/_git
+
+###############################################################################
+###############################################################################
+
