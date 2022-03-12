@@ -1,10 +1,10 @@
 # MUST use `--includes` to see values in included files
 # Example: `git config --global --includes --list`
 [user]
-	useConfigOnly = true
+    useConfigOnly = true
 [core]
-	excludesfile = ~/.config/git/ignore
-	ignorecase = false
+    excludesfile = ~/.config/git/ignore
+    ignorecase = false
 [pager]
     diff = delta
     show = delta
