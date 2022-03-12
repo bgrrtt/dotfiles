@@ -14,7 +14,6 @@ zmodule input          # Applies correct bindkeys for input events
 zmodule utility        # Utility aliases and functions. Adds colour to ls, grep and less
 
 zmodule git            # Provides handy git aliases and functions
-zmodule git-info       # Exposes git repository status information to prompts
 zmodule ssh            # Provides a convenient way to load ssh-agent.
 zmodule fasd           # Offers quick access to files and directories for POSIX shells
 zmodule homebrew       # Defines Homebrew aliases
@@ -31,7 +30,18 @@ zmodule michaelaquilina/zsh-you-should-use -n you-should-use    #
 ###############################################################################
 # Prompt
 
-# * Only ONE PROMPT should be uncommented at a time.
+#
+# Helpers
+#
+
+zmodule prompt-pwd     # Formats the current working directory to be used by prompts. # should prompt-pwd really be named pwd-info????
+zmodule duration-info  # Exposes to prompts how long the last command took to execute, used by asciiship.
+zmodule git-info       # Exposes git repository status information to prompts, used by asciiship.
+
+#
+# Only ONE PROMPT should be uncommented at a time.
+#
+
 
 # INVADER (requires git-info)
 zmodule bgrrtt/zimfw-invader-prompt -n invader-prompt
