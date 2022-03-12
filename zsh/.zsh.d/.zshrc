@@ -51,12 +51,27 @@ export YSU_IGNORED_GLOBAL_ALIASES=("...")
 ###############################################################################
 # Zsh
 
+#
+# History
+#
+
+# Remove older command from the history if a duplicate is to be added.
+setopt HIST_IGNORE_ALL_DUPS
+
+#
+# Input/output
+#
+
 # Set editor default keymap to emacs (`-e`) or vi (`-v`)
 bindkey -v
 
 # Fix backspace when using vi mode
 # https://superuser.com/questions/476532/how-can-i-make-zshs-vi-mode-behave-more-like-bashs-vi-mode
 bindkey "^?" backward-delete-char
+
+#
+# Zsh extentions
+#
 
 # Enable blah
 autoload -U blah
