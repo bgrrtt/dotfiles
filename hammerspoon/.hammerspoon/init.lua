@@ -1,6 +1,7 @@
 -- https://medium.com/@robhowlett/hammerspoon-the-best-mac-software-youve-never-heard-of-40c2df6db0f8
 -- https://ulrik.is/writing/hammerspooning-osx/
 
+hs.application.enableSpotlightForNameSearches(true)
 
 -----------------------------------------------
 -- Set: Hyper Key
@@ -119,11 +120,21 @@ hs.hotkey.bind({"ctrl", "alt"}, "space", function()
 end)
 
 -- Alacritty
+-- hs.hotkey.bind({"alt"}, "space", function()
+--   local alacritty = hs.application.find('alacritty')
+--   if alacritty:isFrontmost() then
+--     alacritty:hide()
+--   else
+--     hs.application.launchOrFocus("/Applications/Alacritty.app")
+--   end
+-- end)
+
+-- Kitty
 hs.hotkey.bind({"alt"}, "space", function()
-  local alacritty = hs.application.find('alacritty')
-  if alacritty:isFrontmost() then
-    alacritty:hide()
+  local kitty = hs.application.find('kitty')
+  if kitty:isFrontmost() then
+    kitty:hide()
   else
-    hs.application.launchOrFocus("/Applications/Alacritty.app")
+    hs.application.launchOrFocus("/Applications/kitty.app")
   end
 end)
