@@ -42,9 +42,11 @@ zmodule git-info       # Exposes git repository status information to prompts, u
 # Only ONE PROMPT should be uncommented at a time.
 #
 
+# ASCIISHIP (requires prompt-pwd, duration-info, git-info)
+zmodule asciiship      # A heavily reduced, ASCII-only version of the Spaceship and Starship prompts.
 
 # INVADER (requires git-info)
-zmodule bgrrtt/zimfw-invader-prompt -n invader-prompt
+# zmodule bgrrtt/zimfw-invader-prompt -n invader-prompt
 
 # SPACESHIP
 # zmodule denysdovhan/spaceship-prompt -n spaceship
