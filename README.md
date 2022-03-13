@@ -64,10 +64,12 @@ There are many dotfiles; these are mine. \*macOS only.
    zsh ~/.dotfiles/zsh/.zsh.d/.zim/zimfw.zsh install
    ```
 
-8) Restart your terminal emulator (Alacritty) and enjoy.
+8) Restart your terminal emulator (kitty) and enjoy.
 
-## Usage
+<!-- ## Usage -->
+<!-- ## Packages -->
 
+<!--
 ### [GNU Stow](https://www.gnu.org/software/stow)
 
 Dotfiles LTS uses `stow`, a "symlink farmer", to mange itself. `stow` applies folder structures, symlinks, and files to a **target** directory (`$HOME`) from one or more "packages" in the (`$HOME/.dotfiles`) **dictionary** directory.
@@ -75,6 +77,7 @@ Dotfiles LTS uses `stow`, a "symlink farmer", to mange itself. `stow` applies fo
 ```zsh
 stow -d $HOME/.dotfiles -t $HOME -S <package>
 ```
+-->
 <!--
 
 - Simulate `stow` with `-n` and increase verbosity to 2 or 3 in order to see changes to your filesystem before actually making changes to your filesystem.
@@ -111,9 +114,11 @@ stow -d $HOME/.dotfiles -t $HOME -S <package>
 - https://github.com/PierreMarchand20/dotfiles
 -->
 
-### [Z shell](http://zsh.sourceforge.net/Doc/Release/zsh_toc.html) and the [Zsh IMproved FrameWork](https://github.com/zimfw)
+<!-- ### [Z shell](http://zsh.sourceforge.net/Doc/Release/zsh_toc.html) and the [Zsh IMproved FrameWork](https://github.com/zimfw)
 
-While Dotfiles 2020 LTS configures a myriad of technologies, the most important is Z shell. The "shell" is the program that gets loaded into/after opening a terminal emulator like Alacritty or iTerm2. [`bash`](https://www.gnu.org/software/bash/) has been the undisputed default shell on many OSs for a long time (and so, still important to understand), but as of 2019, Z shell is the default shell on macOS. <!-- And for [good reasons](https://brandengarrett.com/awareness/zsh). -->
+While Dotfiles 2020 LTS configures a myriad of technologies, the most important is Z shell. The "shell" is the program that gets loaded into/after opening a terminal emulator like Alacritty or iTerm2. [`bash`](https://www.gnu.org/software/bash/) has been the undisputed default shell on many OSs for a long time (and so, still important to understand), but as of 2019, Z shell is the default shell on macOS. -->
+
+<!-- And for [good reasons](https://brandengarrett.com/awareness/zsh). -->
 
 <!--
 
